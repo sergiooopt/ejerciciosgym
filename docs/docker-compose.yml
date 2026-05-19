@@ -1,0 +1,31 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-gym
+
+    environment:
+      MYSQL_ROOT_PASSWORD: Abcd1234.
+      MYSQL_DATABASE: bdejerciciosgym
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - /opt/ejerciciosgym/mariadb:/var/lib/mysql
+
+    restart: unless-stopped
+
+  tomee:
+    image: tomee:jre21-webprofile
+    container_name: tomee-gym
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - /opt/ejerciciosgym/tomee:/usr/local/tomee/webapps
+
+    depends_on:
+      - mariadb
+
+    restart: unless-stopped

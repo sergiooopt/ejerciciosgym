@@ -11,7 +11,7 @@ CREATE TABLE ejercicios (
 	id_ejercicio INT UNSIGNED AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(90) NOT NULL,
     descripcion TEXT NOT NULL,
-    ruta_imagen VARCHAR(255) NOT NULL,
+    ruta_imagen VARCHAR(180) NOT NULL,
     peso_minimo INT UNSIGNED,
     peso_maximo INT UNSIGNED,
     PRIMARY KEY (id_ejercicio)

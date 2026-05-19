@@ -77,10 +77,10 @@ public class Formulario extends javax.swing.JFrame {
     }
     
     private void recargarEjercicios() {
-        tableModel.setRowCount(0);
+        tableModel.setRowCount(1); // sigue conteniendo vacía
         List<Ejercicio> ejercicios = EjercicioService.getAllEjercicios();
         for (Ejercicio ejercicio : ejercicios) {
-            Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen(), ejercicio.getPesoMinimo(), ejercicio.getPesoMaximo()};
+            Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen()};
             tableModel.addRow(row);
         }
     }

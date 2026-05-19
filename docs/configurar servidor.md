@@ -1,68 +1,70 @@
 # Configurar Servidor Debian
 
-Esta guía es sobre los pasos que hacer para preparar el entorno de servidor para la aplicación `ejerciciosgym`. 
+Esta guía es sobre los pasos que se deben seguir para levantar el entorno de **ejerciciosgym**.
 
-Si el entorno ya esta preparado podemos omitir los primeros 6 pasos.
+## 1. Crear directorios de la aplicación
 
-## 1. Crear directorio de la aplicación
-
-Creamos el directorio:
+Creamos los directorio:
 
 ```bash
-sudo mkdir /opt/ejerciciosgym
-sudo mkdir /opt/ejerciciosgym/imagenes
-sudo chown -R administrador:administrador /opt/ejerciciosgym
+$ sudo mkdir /opt/ejerciciosgym
+$ sudo mkdir /opt/ejerciciosgym/imagenes
+$ sudo mkdir /opt/ejerciciosgym/mariadb
+$ sudo mkdir /opt/ejerciciosgym/tomee
+$ sudo chown -R administrador:administrador /opt/ejerciciosgym
 ```
+## 2. Instalar y levantar Docker
 
-## 2. Instalar MariaDB
-
-Instalamos MariaDB desde los repositorios:
+Instalamos Docker:
 
 ```bash
-sudo apt install mariadb-server
+sudo apt install docker
+sudo apt install docker-compose-plugin
 ```
 
-## 3. Configurar MariaDB
-
-Cargamos el script `crear usuario como root.sql`:
+Iniciamos Docker:
 
 ```bash
-sudo mysql -u root < "crear usuario como root.sql"
+sudo systemctl start docker
+sudo systemctl enable docker
 ```
 
-Cargamos el script `crear base de datos.sql`:
+Copiamos **docs/** en **/home/administrador**.
+
+Levantamos los servicios:
 
 ```bash
-mysql -u ejerciciosgym -p < "crear base de datos.sql"
+$ cd docs
+$ docker compose up -d
 ```
 
+## 3. Configurar servicios
 
-Para permitir acceso desde fuera de localhost modificamos:
+Cargamos los scripts ubicados en **docs/scripts/** en MariaDB:
 
 ```bash
-sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+$ sudo docker cp docs mariadb-gym:/docs
+$ sudo docker exec -it mariadb-gym bash
+$ mariadb -u root -p < "/docs/scripts/crear usuario como root.sql"
+$ mariadb -u ejerciciosgym -p < "/docs/scripts/crear base de datos.sql"
 ```
 
-Cambiamos `bin-address: 127.0.0.1` por `bind-address: 0.0.0.0`.
+Modificamos **/etc/mysql/mariadb.conf.d/50-server.cnf**.
 
-Reiniciamos el servicio:
+```
+bind-address = 0.0.0.0
+```
+
+Copiamos **wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
+
+Reiniciamos ambos servicios:
 
 ```bash
-sudo systemctl restart mariadb
+$ sudo docker restart mariadb-gym
+$ sudo docker restart tomee-gym
 ```
 
-## 4. Descargar TomEE
-
-Instalamos TomEE desde `https://www.apache.org/dyn/closer.cgi/tomee/tomee-10.1.5/apache-tomee-10.1.5-plume.tar.gz`.
-
-Descomprimimos TomEE:
-
-```bash
-tar -xzf Descargas/apache-tomee-10.1.4-plume.tar.gz
-mv Descargas/apache-tomee-10.1.5-plume tomee
-```
-
-## 5. Reenvio de puertos
+## 4. Configurar reenvio de puertos
 
 <p style="color:red;">¡Si el servidor está alojado en una máquina en Virtual Box!</p>
 
@@ -70,23 +72,3 @@ Configuramos la salida de los puertos para Mariadb y TomEE.
 
 * Asignaríamos para MariaDB: Anfitrión 0.0.0.0:3306 <-> Invitado :3306
 * Asignaríamos para TomEE: Anfitrión 0.0.0.0:8080 <-> Invitado :8080
-
-## 6. Preparar servicio web
-
-Antes de levantar la aplicación necesitamos instalar Java:
-
-```bash
-sudo apt install default-jdk
-```
-
-Movemos el archivo `wsejerciciosgym.war` a /home/administrador/apache-tomee-plume-10.1.4/webapps.
-
-## 7. Levantar aplicación
-
-La base de datos ya está como servicio, asi que unicamente tendremos que iniciar TomEE (contiene el servicio web).
-
-Para levantar TomEE desde terminal:
-
-```bash
-/home/administrador/apache-tomee-plume-10.1.4/bin/startup.sh
-```
