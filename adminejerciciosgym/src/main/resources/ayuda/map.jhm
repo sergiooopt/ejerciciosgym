@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
+    "http://java.sun.com/products/javahelp/map_2_0.dtd">
+<map version="2.0">
+    <mapID target="sobre" url="contenido/sobre.html"/>
+    <mapID target="formulario_principal" url="contenido/formulario_principal.html"/>
+    <mapID target="seccion_ejercicio" url="contenido/seccion_ejercicio.html"/>
+    <mapID target="seccion_musculos" url="contenido/seccion_musculos.html"/>
+    <mapID target="seccion_ejercicios_cargados" url="contenido/seccion_ejercicios_cargados.html"/>
+    <mapID target="seccion_detalles" url="contenido/seccion_detalles.html"/>
+    <mapID target="flujo_uso" url="contenido/flujo_uso.html"/>
+</map>

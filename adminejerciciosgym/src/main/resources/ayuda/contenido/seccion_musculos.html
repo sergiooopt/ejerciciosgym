@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sección Músculos involucrados</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<h1>Sección Músculos involucrados</h1>
+
+<p>
+    Panel que permite asociar músculos al ejercicio actual. Cada ejercicio puede tener
+    varios músculos asociados, con información adicional sobre su implicación.
+</p>
+
+<h2>Campos</h2>
+
+<div class="campo">
+    <strong>Músculo</strong><br>Desplegable con todos los músculos disponibles en el sistema.
+    Al seleccionar un músculo, si ya existe una asociación con el ejercicio actual,
+    se cargan sus datos permitiendo su modificación.
+</div>
+
+<div class="campo">
+    <strong>Es involucrado</strong><br>Indica si el músculo está implicado en el ejercicio. Si se selecciona <strong>Sí</strong>,
+    se habilitan los campos de descripción, porcentaje de activación y tipo de contracción.
+    Si se selecciona <strong>No</strong>, estos campos se deshabilitan.
+</div>
+
+<div class="campo">
+    <strong>Descripción</strong><br>Descripción del rol que desempeña el músculo en el ejercicio.
+    Se habilita solo si "Es involucrado" está en <strong>Sí</strong>.
+</div>
+
+<div class="campo">
+    <strong>Porcentaje activación (0-100)</strong><br>Grado de activación del músculo durante el ejercicio, en porcentaje.
+    Debe ser un valor entre 0 y 100. Se habilita solo si "Es involucrado" está en
+    <strong>Sí</strong>.
+</div>
+
+<div class="campo">
+    <strong>Es directo</strong><br>Indica si el músculo es el principal ejecutor del movimiento (directo) o
+    actúa como sinergista/estabilizador (no directo). Se habilita solo si
+    "Es involucrado" está en <strong>Sí</strong>.
+</div>
+
+<h2>Botones</h2>
+
+<div class="campo">
+    <strong>Guardar músculo</strong><br>Añade el músculo configurado a la lista temporal de músculos involucrados
+    del ejercicio. Valida que la descripción no esté vacía y que el porcentaje de
+    activación esté entre 0 y 100.
+</div>
+
+<div class="campo">
+    <strong>Eliminar músculo</strong><br>Elimina el músculo seleccionado de la lista temporal de músculos involucrados.
+    No afecta a la base de datos hasta que se guarde el formulario completo.
+</div>
+
+</body>
+</html>

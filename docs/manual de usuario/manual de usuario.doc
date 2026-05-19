@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.3.2 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2026-05-19T16:50:24.843124700"/>
+	<style type="text/css">
+		@page { size: 21cm 29.7cm; margin-left: 2cm; margin-right: 1cm; margin-top: 1cm; margin-bottom: 1cm }
+		p { color: #000000; font-family: "Calibri", "Arial", sans-serif; line-height: 115%; font-size: 11pt; margin-left: 0.21cm; margin-right: 0.21cm; margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent; background: transparent }
+		h1 { color: #000000; line-height: 150%; margin-top: 0.71cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-weight: bold; font-size: 18pt }
+		h1.cjk { font-size: 18pt; font-family: "NSimSun"; font-weight: bold }
+		h1.ctl { font-family: "Arial"; font-size: 18pt; font-weight: bold }
+		h2 { color: #000000; line-height: 150%; margin-top: 0.56cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Serif", serif; font-weight: bold; font-size: 14pt }
+		h2.cjk { font-size: 14pt; font-family: "NSimSun"; font-weight: bold }
+		h2.ctl { font-family: "Arial"; font-size: 14pt; font-weight: bold }
+		code { font-family: "Consolas", monospace; font-size: 10pt }
+		strong { font-weight: bold }
+		a:link { color: #000080; text-decoration: underline }
+		a:visited { color: #800000; text-decoration: underline }
+	</style>
+</head>
+<body lang="es-ES" text="#000000" link="#000080" vlink="#800000" dir="ltr" style="border: none; padding: 0cm"><h1 class="western" align="center" style="margin-top: 6.35cm">
+<font size="6" style="font-size: 28pt">Administración<br/>
+Ejercicios
+Gym</font></h1>
+<h2 class="western" align="center" style="font-weight: normal"><font size="4" style="font-size: 16pt">Manual
+de usuario</font></h2>
+<p align="center" style="margin-left: 0cm; margin-right: 0cm; margin-top: 1.41cm">
+<br/>
+<br/>
+
+</p>
+<p align="center" style="margin-left: 0cm; margin-right: 0cm; margin-top: 1.41cm; page-break-before: always">
+<br/>
+<br/>
+
+</p>
+<h1 class="western">Índice</h1>
+<p><a href="#1. Sobre la aplicación|outline"><strong>1.</strong>
+Sobre la aplicación</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1.1 Funcionalidad general<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1.2
+Tecnología utilizada</p>
+<p><a href="#2. Formulario principal|outline"><strong>2.</strong>
+Formulario principal</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2.1 Sección Ejercicio<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.2
+Sección Músculos involucrados<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.3
+Sección Ejercicios cargados<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.4 Sección
+Detalles del ejercicio</p>
+<p><a href="#3. Flujo de uso recomendado|outline"><strong>3.</strong>
+Flujo de uso recomendado</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;3.1 Crear un nuevo ejercicio<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3.2
+Consultar detalles<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3.3 Modificar un
+ejercicio<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3.4 Eliminar un
+ejercicio<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3.5 Eliminar un músculo
+asociado</p>
+<p><a href="#4. Menú Ayuda|outline"><strong>4.</strong> Menú Ayuda</a></p>
+<h1 class="western"><br/>
+<br/>
+
+</h1>
+<h1 class="western" style="page-break-before: always"><a name="1. Sobre la aplicación|outline"></a>
+1. Sobre la aplicación</h1>
+<p><strong>Administración Ejercicios Gym</strong> es una aplicación
+de escritorio en Java Swing para gestionar ejercicios de gimnasio y
+los músculos que intervienen en cada uno.</p>
+<h2 class="western">1.1 Funcionalidad general</h2>
+<p>La aplicación se comunica con un servicio REST backend. El
+usuario puede:</p>
+<ul>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm"><strong>Crear</strong>
+	ejercicios con nombre, descripción, imagen y pesos. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm"><strong>Asociar</strong>
+	músculos a cada ejercicio con grado de implicación. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm"><strong>Consultar</strong>
+	la lista de ejercicios del sistema. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm"><strong>Visualizar</strong>
+	detalles de cualquier ejercicio y sus músculos. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm"><strong>Modificar</strong>
+	ejercicios existentes. 
+	</p></li>
+	<li><p><strong>Eliminar</strong> ejercicios y asociaciones de
+	músculos. 
+	</p></li>
+</ul>
+<h2 class="western">1.2 Tecnología utilizada</h2>
+<ul>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Java Swing
+	(Nimbus) 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">HTTP Client
+	(comunicación REST) 
+	</p></li>
+	<li><p>Jackson Databind (JSON) 
+	</p></li>
+</ul>
+<p><strong>Nota:</strong> Requiere el servicio backend
+<code>wsejerciciosgym</code> en ejecución.</p>
+<h1 class="western"><br/>
+<br/>
+
+</h1>
+<h1 class="western" style="page-break-before: always"><a name="2. Formulario principal|outline"></a>
+2. Formulario principal</h1>
+<p>La ventana tiene cuatro secciones. A la izquierda: <strong>Ejercicio</strong>
+y <strong>Músculos involucrados</strong>. A la derecha: <strong>Ejercicios
+cargados</strong> y <strong>Detalles del ejercicio</strong>.</p>
+<h2 class="western">2.1 Sección Ejercicio</h2>
+<p>Datos básicos del ejercicio.</p>
+<p><strong>Nombre</strong> (<code>txtNombreEjercicio</code>) —
+Identifica el ejercicio. Obligatorio.</p>
+<p><strong>Descripción</strong> (<code>txtDescripcionEjercicio</code>)
+— Descripción breve. Obligatorio.</p>
+<p><strong>Imagen</strong> (<code>txtImagen</code> + botón Validar)
+— Ruta absoluta a la imagen en el servidor. Debe validarse antes de
+guardar. Formatos: .jpg, .jpeg.</p>
+<p><strong>Peso mínimo/máximo</strong> (<code>txtPesoMinimo</code>,
+<code>txtPesoMaximo</code>) — Valores numéricos enteros.</p>
+<p><strong>Validar</strong> (<code>btnValidarImagen</code>) —
+Verifica que la ruta de imagen existe y tiene formato válido.</p>
+<p><strong>Guardar formulario</strong> (<code>btnGuardarEjercicioMusculos</code>)
+— Guarda o actualiza el ejercicio con todos sus músculos.</p>
+<h2 class="western">2.2 Sección Músculos involucrados</h2>
+<p>Asocia músculos al ejercicio actual.</p>
+<p><strong>Músculo</strong> (<code>cbMusculos</code>) —
+Desplegable con todos los músculos.</p>
+<p><strong>Es involucrado</strong> (<code>btnNoEsInvolucrado</code> /
+<code>btnSiEsInvolucrado</code>) — Habilita o deshabilita los
+campos siguientes.</p>
+<p><strong>Descripción</strong> (<code>txtDescripcionEjMusculo</code>)
+— Rol del músculo en el ejercicio.</p>
+<p><strong>Porcentaje activación (0-100)</strong>
+(<code>txtActivacionEjMusculo</code>) — Grado de activación
+muscular.</p>
+<p><strong>Es directo</strong> (<code>btnNoDirectoEjMusculo</code> /
+<code>btnSiEsDirectoEjMusculo</code>) — Indica si es el músculo
+principal (directo) o sinergista (no directo).</p>
+<p><strong>Guardar músculo</strong> (<code>btnGuardarEjMusculo</code>)
+— Añade el músculo a la lista temporal.</p>
+<p><strong>Eliminar músculo</strong> (<code>btnEliminarEjMusculo</code>)
+— Quita el músculo de la lista temporal.</p>
+<h2 class="western"><br/>
+<br/>
+
+</h2>
+<h2 class="western" style="page-break-before: always">2.3 Sección
+Ejercicios cargados</h2>
+<p>Tabla con todos los ejercicios. Columnas: Id, Nombre, Imagen, Peso
+mínimo, Peso máximo.</p>
+<p><strong>Un clic</strong> — Muestra detalles en el panel inferior
+derecho.</p>
+<p><strong>Doble clic</strong> — Carga los datos en el formulario
+para edición.</p>
+<p><strong>Eliminar ejercicio</strong> (<code>btnEliminarEjercicio</code>)
+— Elimina el ejercicio seleccionado de la base de datos.</p>
+<h2 class="western">2.4 Sección Detalles del ejercicio</h2>
+<p>Area de texto no editable (<code>txtaDetallesEjercicio</code>) con
+la información completa del ejercicio seleccionado y sus músculos
+asociados (nombre, descripción, zona, grupo). Se actualiza
+automáticamente al hacer clic en la tabla.</p>
+<h1 class="western"><a name="3. Flujo de uso recomendado|outline"></a>
+3. Flujo de uso recomendado</h1>
+<h2 class="western">3.1 Crear un nuevo ejercicio</h2>
+<ol>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Asegúrese de
+	no tener ninguna fila seleccionada en la tabla. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Rellene los
+	campos de Ejercicio (nombre, descripción, imagen, pesos). 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Pulse <strong>Validar</strong>
+	para verificar la imagen. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Seleccione un
+	músculo y marque <strong>Sí</strong> en &quot;Es involucrado&quot;.
+		</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Introduzca
+	descripción, porcentaje de activación y tipo de contracción. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Pulse <strong>Guardar
+	músculo</strong>. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Repita para
+	cada músculo adicional. 
+	</p></li>
+	<li><p>Pulse <strong>Guardar formulario</strong> para crear el
+	ejercicio. 
+	</p></li>
+</ol>
+<h2 class="western">3.2 Consultar detalles</h2>
+<ol>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Haga <strong>un
+	clic</strong> sobre un ejercicio en la tabla. 
+	</p></li>
+	<li><p>Los detalles aparecen en el panel inferior derecho. 
+	</p></li>
+</ol>
+<h2 class="western">3.3 Modificar un ejercicio</h2>
+<ol>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Haga <strong>doble
+	clic</strong> sobre el ejercicio en la tabla. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Modifique los
+	campos necesarios. 
+	</p></li>
+	<li><p>Pulse <strong>Guardar formulario</strong>. 
+	</p></li>
+</ol>
+<h2 class="western" style="page-break-before: always">3.4 Eliminar un
+ejercicio</h2>
+<ol>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Seleccione el
+	ejercicio en la tabla. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Pulse <strong>Eliminar
+	ejercicio</strong>. 
+	</p></li>
+	<li><p>Se eliminan el ejercicio, su imagen y todas sus relaciones. 
+	</p></li>
+</ol>
+<h2 class="western">3.5 Eliminar un músculo asociado</h2>
+<ol>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Seleccione el
+	músculo en el desplegable. 
+	</p></li>
+	<li><p style="margin-right: 0cm; margin-bottom: 0cm">Pulse <strong>Eliminar
+	músculo</strong>. 
+	</p></li>
+	<li><p>Guarde el formulario para confirmar los cambios. 
+	</p></li>
+</ol>
+<h1 class="western"><a name="4. Menú Ayuda|outline"></a>4. Menú
+Ayuda</h1>
+<p>El menú <strong>Ayuda</strong> en la barra superior tiene dos
+opciones:</p>
+<p><strong>Sobre</strong> (Ctrl+Alt+S) — Abre el sistema de ayuda.</p>
+<p><strong>Salir</strong> (Ctrl+Alt+F4) — Cierra la aplicación.</p>
+<div title="footer"><p align="right" style="line-height: 100%; margin-left: 0cm; margin-right: 0cm; margin-top: 0.5cm; margin-bottom: 0cm; background: transparent"><a name="PageNumWizard_FOOTER_HTML1"></a>
+	<span style="background: #c0c0c0"><sdfield type=PAGE subtype=RANDOM format=PAGE>6</sdfield></span>
+	<font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">/
+	</font></font><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="background: #c0c0c0"><sdfield type=DOCSTAT subtype=PAGE format=PAGE>6</sdfield></span></font></font></p>
+</div>
+</body>
+</html>

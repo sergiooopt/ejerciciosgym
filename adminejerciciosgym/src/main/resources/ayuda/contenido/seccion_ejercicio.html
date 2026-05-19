@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sección Ejercicio</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<h1>Sección Ejercicio</h1>
+
+<p>Panel donde se introducen y editan los datos básicos del ejercicio.</p>
+
+<h2>Campos</h2>
+
+<div class="campo">
+    <strong>Nombre</strong><br>Texto que identifica el ejercicio (ej: "Press banca", "Sentadilla").
+    Campo obligatorio.
+</div>
+
+<div class="campo">
+    <strong>Descripción</strong><br>Descripción breve del ejercicio. Campo obligatorio.
+</div>
+
+<div class="campo">
+    <strong>Imagen</strong><br>Ruta absoluta de la imagen representativa del ejercicio en el servidor.
+    Debe introducirse una ruta completa (ej: <code>/home/admin/imagenes/banca.jpg</code>).
+    Pulse <strong>Validar</strong> para comprobar que el archivo existe y tiene formato
+    <code>.jpg</code> o <code>.jpeg</code>. La imagen debe validarse correctamente antes de
+    guardar.
+</div>
+
+<div class="campo">
+    <strong>Peso mínimo</strong><br>Valor numérico entero que representa el peso mínimo recomendado para el ejercicio.
+</div>
+
+<div class="campo">
+    <strong>Peso máximo</strong><br>Valor numérico entero que representa el peso máximo recomendado para el ejercicio.
+</div>
+
+<h2>Botones</h2>
+
+<div class="campo">
+    <strong>Validar</strong><br>Comprueba que la ruta de imagen introducida existe en el servidor y que su
+    extensión es <code>.jpg</code> o <code>.jpeg</code>. Es necesario validar la imagen
+    antes de poder guardar el formulario.
+</div>
+
+<div class="campo">
+    <strong>Guardar formulario</strong><br>Guarda el ejercicio junto con todos los músculos involucrados.
+    Si se selecciona un ejercicio existente en la tabla (doble clic), lo actualiza.
+    Si no hay selección previa, crea un ejercicio nuevo.
+    Valida que todos los campos obligatorios estén rellenos y que la imagen esté validada.
+</div>
+
+</body>
+</html>

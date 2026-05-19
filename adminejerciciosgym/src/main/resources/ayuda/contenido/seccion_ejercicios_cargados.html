@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sección Ejercicios cargados</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<h1>Sección Ejercicios cargados</h1>
+
+ <p>
+     Tabla que muestra todos los ejercicios existentes en el sistema. Los datos se
+     cargan automáticamente al iniciar la aplicación.
+ </p>
+
+ <h2>Columnas de la tabla</h2>
+ <ul>
+     <li><strong>Id</strong> — Identificador numérico único del ejercicio.</li>
+     <li><strong>Nombre</strong> — Nombre del ejercicio.</li>
+     <li><strong>Imagen</strong> — Ruta de la imagen asociada en el servidor.</li>
+     <li><strong>Peso mínimo</strong> — Peso mínimo para realizar el ejercicio.</li>
+     <li><strong>Peso máximo</strong> — Peso máximo para realizar el ejercicio.</li>
+ </ul>
+
+ <h2>Interacción</h2>
+ <ul>
+     <li><strong>Un clic</strong> en una fila: muestra los detalles completos del
+         ejercicio y sus músculos en el panel <em>Detalles del ejercicio</em>.</li>
+     <li><strong>Doble clic</strong> en una fila: carga los datos del ejercicio en
+         los campos del formulario para su edición.</li>
+ </ul>
+
+ <h2>Botones</h2>
+
+ <div class="campo">
+     <strong>Eliminar ejercicio</strong> (<code>btnEliminarEjercicio</code>)
+     <br>Elimina de la base de datos el ejercicio seleccionado en la tabla.
+     Es necesario tener una fila seleccionada para poder usarlo.
+ </div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+    "http://java.sun.com/products/javahelp/toc_2_0.dtd">
+<toc version="2.0">
+    <tocitem text="Sobre la aplicación" target="sobre"/>
+    <tocitem text="Formulario principal" target="formulario_principal">
+        <tocitem text="Formulario de ejercicio" target="seccion_ejercicio"/>
+        <tocitem text="Formulario de músculos involucrados" target="seccion_musculos"/>
+        <tocitem text="Ejercicios cargados en base de datos" target="seccion_ejercicios_cargados"/>
+        <tocitem text="Detalles del ejercicio seleccionado" target="seccion_detalles"/>
+        <tocitem text="Flujo de uso recomendado" target="flujo_uso"/>
+    </tocitem>
+</toc>
