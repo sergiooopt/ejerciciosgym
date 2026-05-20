@@ -5,7 +5,6 @@ services:
 
     environment:
       MYSQL_ROOT_PASSWORD: Abcd1234.
-      MYSQL_DATABASE: bdejerciciosgym
 
     ports:
       - "3306:3306"
