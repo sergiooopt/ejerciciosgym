@@ -1,4 +1,13 @@
+.vscode/
+*.log
+
 # Java
-*.jar
-*.war
+docs/*.jar
+docs/*.war
 target/
+
+# Flutter
+.dart_tool/
+build/
+android/.gradle/
+ios/Pods/
