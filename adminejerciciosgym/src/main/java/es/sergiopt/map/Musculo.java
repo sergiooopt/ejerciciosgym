@@ -64,16 +64,4 @@ public class Musculo {
         // Devolvemos nombre para combo box
         return nombre;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;        
-        if (!(obj instanceof Musculo)) return false;
-        
-        Musculo musculo = (Musculo) obj;
-        return nombre.equals(musculo.nombre) 
-            && descripcion.equals(musculo.descripcion) 
-            && zona.equals(musculo.zona) 
-            && grupo.equals(musculo.grupo);
-    }
 }

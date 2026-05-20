@@ -71,17 +71,4 @@ public class Ejercicio {
     public String toString() {
         return "Ejercicio{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", pesoMinimo=" + pesoMinimo + ", pesoMaximo=" + pesoMaximo + '}';
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Ejercicio)) return false;
-
-        Ejercicio ejercicio = (Ejercicio) obj;
-        return nombre.equals(ejercicio.nombre)
-            && descripcion.equals(ejercicio.descripcion)
-            && rutaImagen.equals(ejercicio.rutaImagen)
-            && pesoMinimo.equals(ejercicio.pesoMinimo)
-            && pesoMaximo.equals(ejercicio.pesoMaximo);
-    }
 }

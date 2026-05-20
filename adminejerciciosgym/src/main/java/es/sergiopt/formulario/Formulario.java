@@ -7,6 +7,7 @@ package es.sergiopt.formulario;
 import es.sergiopt.map.Ejercicio;
 import es.sergiopt.map.EjercicioMusculo;
 import es.sergiopt.map.Musculo;
+import es.sergiopt.services.EjercicioMusculoService;
 import es.sergiopt.services.EjercicioService;
 import es.sergiopt.services.MusculoService;
 import java.awt.event.ItemEvent;
@@ -28,6 +29,7 @@ public class Formulario extends javax.swing.JFrame {
     
     private Boolean cargarDatos;
     private Boolean validarImagen;
+    private Boolean esEjercicioSeleccionado;
     
     private List<EjercicioMusculo> musculosInvolucrados;
     
@@ -38,6 +40,7 @@ public class Formulario extends javax.swing.JFrame {
         // Inicializaciones
         cargarDatos = false;
         validarImagen = false;
+        esEjercicioSeleccionado = false;
         musculosInvolucrados = new ArrayList<>();
         
         // Componentes
@@ -47,13 +50,13 @@ public class Formulario extends javax.swing.JFrame {
         tableModel = (DefaultTableModel) tblEjercicios.getModel();
         
         // Cargar músculos en combo box
-        List<Musculo> musculos = MusculoService.getAllMusculos();       
+        List<Musculo> musculos = MusculoService.getAll();       
         for (Musculo musculo : musculos) cbMusculos.addItem(musculo);                        
         
         ayudaUtil = new AyudaUtil();
 
         // Cargar ejercicios en tabla
-        List<Ejercicio> ejercicios = EjercicioService.getAllEjercicios();
+        List<Ejercicio> ejercicios = EjercicioService.getAll();
         for (Ejercicio ejercicio : ejercicios) {
             Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen(), ejercicio.getPesoMinimo(), ejercicio.getPesoMaximo()};
             tableModel.addRow(row);
@@ -78,7 +81,7 @@ public class Formulario extends javax.swing.JFrame {
     
     private void recargarEjercicios() {
         tableModel.setRowCount(1); // sigue conteniendo vacía
-        List<Ejercicio> ejercicios = EjercicioService.getAllEjercicios();
+        List<Ejercicio> ejercicios = EjercicioService.getAll();
         for (Ejercicio ejercicio : ejercicios) {
             Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen()};
             tableModel.addRow(row);
@@ -531,8 +534,13 @@ public class Formulario extends javax.swing.JFrame {
                         
         // --- idEjercicio se añade al validar formulario contra bd ---        
         Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getId(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));
-        
+        if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()))) {
+            musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()));
+            JOptionPane.showMessageDialog(this, "Músculo actualizado correctamente");   
+            return;         
+        }        
+
+        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getId(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));        
         JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
     }//GEN-LAST:event_btnGuardarEjMusculoActionPerformed
 
@@ -561,7 +569,7 @@ public class Formulario extends javax.swing.JFrame {
         Ejercicio ejercicio = new Ejercicio(null, nombre, descripcion, txtImagen.getText(), pesoMinimo, pesoMaximo);
         int filaSeleccionada = tblEjercicios.getSelectedRow();
         
-        if (filaSeleccionada > 0) {
+        if (filaSeleccionada > 0 && esEjercicioSeleccionado) {
             // Actualizar
             Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
             
@@ -571,29 +579,29 @@ public class Formulario extends javax.swing.JFrame {
             }
             
             ejercicio.setId(idEjercicio);
-            EjercicioService.updateEjercicio(idEjercicio, ejercicio);
+            EjercicioService.update(idEjercicio, ejercicio);
             
             // Actualizar imagen solo si cambió la ruta
             String rutaImagenBd = (String) tableModel.getValueAt(filaSeleccionada, 2);
             if (rutaImagenBd == null || !rutaImagenBd.equals(txtImagen.getText())) {
-                EjercicioService.addImagenEjercicio(idEjercicio, new File(txtImagen.getText()));
+                EjercicioService.addImagen(idEjercicio, new File(txtImagen.getText()));
             }
             
             // Reemplazar todos los músculos involucrados
-            MusculoService.deleteAllMusculosInvolucrados(idEjercicio);
+            EjercicioMusculoService.deleteAll(idEjercicio);
             for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
                 musculoInvolucrado.setIdEjercicio(idEjercicio);
-                MusculoService.addMusculoInvolucrado(musculoInvolucrado);
+                EjercicioMusculoService.add(musculoInvolucrado);
             }
             
         } else {
             // Insertar
-            Ejercicio ejercicioCreado = EjercicioService.addEjercicio(ejercicio);
-            EjercicioService.addImagenEjercicio(ejercicioCreado.getId(), new File(txtImagen.getText()));
+            Ejercicio ejercicioCreado = EjercicioService.add(ejercicio);
+            EjercicioService.addImagen(ejercicioCreado.getId(), new File(txtImagen.getText()));
             
             for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
                 musculoInvolucrado.setIdEjercicio(ejercicioCreado.getId());
-                MusculoService.addMusculoInvolucrado(musculoInvolucrado);
+                EjercicioMusculoService.add(musculoInvolucrado);
             }
         }
         
@@ -611,14 +619,18 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_mitemSalirActionPerformed
 
     private void tblEjerciciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEjerciciosMouseClicked
+        Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);            
+        if (idEjercicio == null) {
+            esEjercicioSeleccionado = false;
+            return;
+        }
+
         // Mostar detalles
         if (evt.getClickCount() == 1) {            
-            Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);            
-            if (idEjercicio != null) {
-                Ejercicio ejercicio = EjercicioService.getEjercicio(idEjercicio);
+                Ejercicio ejercicio = EjercicioService.get(idEjercicio);
             
                 // Obtener músculos involucrados
-                List<EjercicioMusculo> musculos = MusculoService.getMusculosInvolucrado(idEjercicio);
+                List<EjercicioMusculo> musculos = EjercicioMusculoService.getAll(idEjercicio);
             
                 // Mostrar
                 StringBuilder sb = new StringBuilder();
@@ -630,8 +642,8 @@ public class Formulario extends javax.swing.JFrame {
             
                 sb.append("\n-- Músculos --\n");
                 for (int i = 0; i < musculos.size(); i++) {
-                    Musculo musculo = MusculoService.getMusculo(musculos.get(i).getIdMusculo());
-                    sb.append("  - Músculo: ").append(musculo.getNombre()).append("\n");
+                    Musculo musculo = MusculoService.get(musculos.get(i).getIdMusculo());
+                    sb.append("  <> Músculo: ").append(musculo.getNombre()).append("\n");
                     sb.append("    - Nombre: ").append(musculo.getNombre()).append("\n");
                     sb.append("    - Descripción: ").append(musculo.getDescripcion()).append("\n");
                     sb.append("    - Zona: ").append(musculo.getZona()).append("\n");
@@ -640,21 +652,14 @@ public class Formulario extends javax.swing.JFrame {
             
                 txtaDetallesEjercicio.setText(sb.toString());
             }
-        }
         
         // Mostrar en formulario
-        if (evt.getClickCount() == 2) {
-            Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);
-            
-            if (idEjercicio == null) {
-                reiniciarCampos();
-                return;
-            }
-            
+        if (evt.getClickCount() == 2) {            
+            esEjercicioSeleccionado = true;
             cargarDatos = true;
                 
             // Ejercicio
-            Ejercicio ejercicio = EjercicioService.getEjercicio(idEjercicio);                
+            Ejercicio ejercicio = EjercicioService.get(idEjercicio);                
             txtNombreEjercicio.setText(ejercicio.getNombre());
             txtDescripcionEjercicio.setText(ejercicio.getDescripcion());
             txtImagen.setText(ejercicio.getRutaImagen());
@@ -662,7 +667,7 @@ public class Formulario extends javax.swing.JFrame {
             txtPesoMaximo.setText(ejercicio.getPesoMaximo() != 0 ? String.valueOf(ejercicio.getPesoMaximo()) : "");
                 
             // Músculos
-            musculosInvolucrados = MusculoService.getMusculosInvolucrado(idEjercicio);          
+            musculosInvolucrados = EjercicioMusculoService.getAll(idEjercicio);          
             cargarDatos = false;            
         }
     }//GEN-LAST:event_tblEjerciciosMouseClicked
@@ -682,7 +687,7 @@ public class Formulario extends javax.swing.JFrame {
         
             if (idEjercicio != null) {
                 if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()))) { // comprueba si en lista algún idMusculo == idMusculo
-                    EjercicioMusculo ejercicioMusculoSeleccionado = MusculoService.getMusculoInvolucrado(idEjercicio, musculoSeleccionado.getId());                    
+                    EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculoService.get(idEjercicio, musculoSeleccionado.getId());                    
                     modificarVistaComponentesMusculo(true);
                     
                     txtDescripcionEjMusculo.setText(musculoSeleccionado.getDescripcion());
@@ -721,8 +726,8 @@ public class Formulario extends javax.swing.JFrame {
         
         Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
         if (idEjercicio != null)  {
-            EjercicioService.deleteImagenEjercicio(idEjercicio);
-            EjercicioService.deleteEjercicio(idEjercicio);
+            EjercicioService.deleteImagen(idEjercicio);
+            EjercicioService.delete(idEjercicio);
             recargarEjercicios();
         }
     }//GEN-LAST:event_btnEliminarEjercicioActionPerformed

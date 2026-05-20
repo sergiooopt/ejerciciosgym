@@ -13,7 +13,7 @@ public class MusculoDao {
 
     public MusculoDao() {}
 
-    public boolean create(Musculo musculo) {
+    public boolean add(Musculo musculo) {
         boolean añadido = false;
         String sql = "INSERT INTO musculos (nombre, descripcion, zona, grupo) VALUES (?, ?, ?, ?)";
             
@@ -49,7 +49,7 @@ public class MusculoDao {
         return new Musculo(idMusculo, nombre, descripcion, zona, grupo);
     }
 
-    public List<Musculo> get() {
+    public List<Musculo> getAll() {
         List<Musculo> musculos = new ArrayList<>();
         String sql = "SELECT * FROM musculos";
 
@@ -66,7 +66,7 @@ public class MusculoDao {
         return musculos;
     }
 
-    public Musculo read(int idMusculo) {
+    public Musculo get(int idMusculo) {
         Musculo musculo = null;
         String sql = "SELECT * FROM musculos WHERE id_musculo = ?";
 

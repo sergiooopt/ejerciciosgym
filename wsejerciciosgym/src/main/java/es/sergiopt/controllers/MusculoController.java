@@ -22,7 +22,7 @@ public class MusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         MusculoDao dao = new MusculoDao();
-        List<Musculo> musculos = dao.get();
+        List<Musculo> musculos = dao.getAll();
         return Response.ok(musculos).build();
     }
 
@@ -31,7 +31,7 @@ public class MusculoController {
     @Produces(MediaType.APPLICATION_JSON)    
     public Response get(@PathParam("id") int id) {
         MusculoDao dao = new MusculoDao();
-        Musculo musculo = dao.read(id);
+        Musculo musculo = dao.get(id);
         return musculo == null
             ? Response.status(Response.Status.NOT_FOUND).build()
             : Response.ok(musculo).build();
@@ -42,7 +42,7 @@ public class MusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(Musculo musculo) {
         MusculoDao dao = new MusculoDao();
-        boolean añadido = dao.create(musculo);
+        boolean añadido = dao.add(musculo);
         return Boolean.FALSE.equals(añadido)
             ? Response.status(Response.Status.BAD_REQUEST).build()
             : Response.status(Response.Status.OK).build();

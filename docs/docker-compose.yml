@@ -23,6 +23,7 @@ services:
 
     volumes:
       - /opt/ejerciciosgym/tomee:/usr/local/tomee/webapps
+      - /opt/ejerciciosgym/imagenes:/opt/ejerciciosgym/imagenes
 
     depends_on:
       - mariadb

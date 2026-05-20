@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import es.sergiopt.map.Ejercicio;
 import es.sergiopt.utils.Constantes;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -24,7 +23,7 @@ import java.util.List;
  */
 public class EjercicioService {
     
-    public static List<Ejercicio> getAllEjercicios() {
+    public static List<Ejercicio> getAll() {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios")).header("Accept", "application/json").GET().build();
@@ -40,7 +39,7 @@ public class EjercicioService {
         }
     }
     
-    public static Ejercicio getEjercicio(int id) {
+    public static Ejercicio get(int id) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + id)).header("Accept", "application/json").GET().build();
@@ -56,7 +55,7 @@ public class EjercicioService {
         }
     }
     
-    public static Ejercicio addEjercicio(Ejercicio ejercicio) {
+    public static Ejercicio add(Ejercicio ejercicio) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(ejercicio);
@@ -77,7 +76,7 @@ public class EjercicioService {
     }
       
     
-    public static void updateEjercicio(int idEjercicio, Ejercicio ejercicio) {
+    public static void update(int idEjercicio, Ejercicio ejercicio) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(ejercicio);
@@ -95,7 +94,7 @@ public class EjercicioService {
         }
     }
     
-    public static void deleteEjercicio(int idEjercicio) {
+    public static void delete(int idEjercicio) {
          try {            
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idEjercicio)).DELETE().build();
@@ -108,9 +107,9 @@ public class EjercicioService {
         }    
     }
     
-    // -- IMAGEN --
+    // -- IMAGENES --
     
-    public static File getImagenEjercicio(int idEjercicio) {
+    public static File getImagen(int idEjercicio) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idEjercicio + "/imagen"))
@@ -131,7 +130,7 @@ public class EjercicioService {
         }
     }
     
-    public static void addImagenEjercicio(int idEjercicio, File rutaImagenEjercicio) {
+    public static void addImagen(int idEjercicio, File rutaImagenEjercicio) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idEjercicio + "/imagen"))
@@ -141,14 +140,12 @@ public class EjercicioService {
             
             FormularioService.comprobarError(response);
             
-        } catch (FileNotFoundException e) {
-            throw new ServiceException("Error: no se pudo subir la imagen", e);
         } catch (IOException | InterruptedException e) {
             throw new ServiceException("Error: no se pudo subir la imagen", e);
         }
     }  
     
-    public static void deleteImagenEjercicio(int idEjercicio) {
+    public static void deleteImagen(int idEjercicio) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idEjercicio + "/imagen")).DELETE().build();
@@ -159,6 +156,5 @@ public class EjercicioService {
         } catch (IOException | InterruptedException e) {
             throw new ServiceException("Error: no se pudo eliminar la imagen d e el ejercicio a través del servicio web", e);
         } 
-    }
-    
+    }   
 }

@@ -5,32 +5,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>es.sergiopt</groupId>
-  <artifactId>wsejerciciosgym</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>Ejercicios Gym Web Service</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>es.sergiopt</groupId>
+    <artifactId>wsejerciciosgym</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Ejercicios Gym Web Service</name>
 
-  <dependencies>
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+    </properties>
 
-    <dependency>
-      <groupId>jakarta.platform</groupId>
-      <artifactId>jakarta.jakartaee-api</artifactId>
-      <version>10.0.0</version>
-      <scope>provided</scope>
-    </dependency>    
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>    
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.5.8</version>
+        </dependency>   
+    </dependencies>
 
-    <dependency>
-      <groupId>org.mariadb.jdbc</groupId>
-      <artifactId>mariadb-java-client</artifactId>
-      <version>3.5.8</version>
-    </dependency>   
-
-  </dependencies>
-
-  <build>
-    <finalName>wsejerciciosgym</finalName>
-  </build>
+    <build>
+        <finalName>wsejerciciosgym</finalName>
+    </build>
 
 </project>

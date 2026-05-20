@@ -13,7 +13,7 @@ public class EjercicioMusculoDao {
 
     public EjercicioMusculoDao() {}
 
-    public boolean create(EjercicioMusculo ejercicioMusculo) {
+    public boolean add(EjercicioMusculo ejercicioMusculo) {
         boolean añadido = false;
         String sql = "INSERT INTO ejercicio_musculos (id_ejercicio, id_musculo, descripcion, es_directo, porcentaje_activacion) VALUES (?, ?, ?, ?, ?)";
 
@@ -50,7 +50,7 @@ public class EjercicioMusculoDao {
         return new EjercicioMusculo(idEjercicio, idMusculo, descripcion, esDirecto, porcentajeActivacion);
     }
 
-    public List<EjercicioMusculo> get() {
+    public List<EjercicioMusculo> getAll() {
         List<EjercicioMusculo> ejerciciosMusculos = new ArrayList<>();
         String sql = "SELECT * FROM ejercicio_musculos";
 
@@ -67,7 +67,7 @@ public class EjercicioMusculoDao {
         return ejerciciosMusculos;
     }
 
-    public List<EjercicioMusculo> readMusculos(int idEjercicio) {
+    public List<EjercicioMusculo> getMusculos(int idEjercicio) {
         List<EjercicioMusculo> ejerciciosMusculos = new ArrayList<>();
         String sql = "SELECT * FROM ejercicio_musculos WHERE id_ejercicio = ?";
         
@@ -86,7 +86,7 @@ public class EjercicioMusculoDao {
         return ejerciciosMusculos;
     }
     
-    public EjercicioMusculo read(int idEjercicio, int idMusculo) {
+    public EjercicioMusculo get(int idEjercicio, int idMusculo) {
         EjercicioMusculo ejercicioMusculo = null;
         String sql = "SELECT * FROM ejercicio_musculos WHERE id_ejercicio = ? AND id_musculo = ?";
 

@@ -28,7 +28,7 @@ public class EjercicioController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         EjercicioDao dao = new EjercicioDao();
-        List<Ejercicio> ejercicios = dao.get();
+        List<Ejercicio> ejercicios = dao.getAll();
         return Response.ok(ejercicios).build();
     }
 
@@ -37,7 +37,7 @@ public class EjercicioController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") int id) {
         EjercicioDao dao = new EjercicioDao();
-        Ejercicio ejercicio = dao.read(id);
+        Ejercicio ejercicio = dao.get(id);
         return ejercicio == null
             ? Response.status(Response.Status.NOT_FOUND).build()
             : Response.ok(ejercicio).build();
@@ -48,7 +48,7 @@ public class EjercicioController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(Ejercicio ejercicio) {
         EjercicioDao dao = new EjercicioDao();
-        Ejercicio ejercicioAñadido = dao.create(ejercicio);
+        Ejercicio ejercicioAñadido = dao.add(ejercicio);
         return ejercicioAñadido == null
             ? Response.status(Response.Status.BAD_REQUEST).build()
             : Response.status(Response.Status.OK).entity(ejercicioAñadido).build();
@@ -81,7 +81,7 @@ public class EjercicioController {
     @Produces({"image/png", "image/jpeg"})
     public Response getImagen(@PathParam("id") int id) {
         EjercicioDao dao = new EjercicioDao();
-        Ejercicio ejercicio = dao.read(id);
+        Ejercicio ejercicio = dao.get(id);
         
         if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
             
@@ -97,15 +97,16 @@ public class EjercicioController {
     public Response addImagen(@PathParam("id") int id, InputStream input) {
         try {
             EjercicioDao dao = new EjercicioDao();
-            Ejercicio ejercicio = dao.read(id);
+            Ejercicio ejercicio = dao.get(id);
         
             if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
                 
-            String rutaImagen = "/opt/ejerciciosgym/imagenes/" + id + "-" + ejercicio.getNombre() + ".jpg";
-            Files.copy(input, Paths.get(rutaImagen), StandardCopyOption.REPLACE_EXISTING);
+            String nombreEjercicio = ejercicio.getNombre().trim().toLowerCase().replaceAll(" ", "_").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u");
+            java.nio.file.Path ruta = Paths.get("/opt/ejerciciosgym/imagenes/", id + "-" + nombreEjercicio + ".jpg");
+            Files.copy(input, ruta, StandardCopyOption.REPLACE_EXISTING);
             
             // Actualizar cambio de ruta en bd
-            ejercicio.setRutaImagen(rutaImagen);
+            ejercicio.setRutaImagen(ruta.toString());
             dao.update(id, ejercicio);
             
             // Devolver respuesta 200
@@ -122,7 +123,7 @@ public class EjercicioController {
     public Response deleteImagen(@PathParam("id") int id) {
         try {
             EjercicioDao dao = new EjercicioDao();
-            Ejercicio ejercicio = dao.read(id);
+            Ejercicio ejercicio = dao.get(id);
         
             if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
         

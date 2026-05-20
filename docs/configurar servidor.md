@@ -1,6 +1,8 @@
 # Configurar Servidor Debian
 
-Esta guía es sobre los pasos que se deben seguir para levantar el entorno de **ejerciciosgym**.
+Esta guía es sobre levantar el entorno de **ejerciciosgym**
+
+Debemos tener la carpeta **docs/** del repositorio [**ejerciciosgym**](https://github.com/sergiooopt/ejerciciosgym.git). Además se asume que está en **/home/usuario**.
 
 ### 1. Crear directorios de la aplicación
 
@@ -18,15 +20,15 @@ $ sudo chown -R usuario:usuario /opt/ejerciciosgym
 Instalamos Docker:
 
 ```bash
-sudo apt install docker
-sudo apt install docker-compose-plugin
+$ sudo apt install docker
+$ sudo apt install docker-compose-plugin
 ```
 
 Iniciamos Docker:
 
 ```bash
-sudo systemctl start docker
-sudo systemctl enable docker
+$ sudo systemctl start docker
+$ sudo systemctl enable docker
 ```
 
 Copiamos **docs/** en **/home/usuario**.
@@ -55,7 +57,7 @@ Cargamos los scripts de la carpeta **scripts/** en MariaDB:
 sudo docker cp scripts mariadb-gym:/scripts
 ```
 
-Los ejecutamos manualmente dentro de mariadb (contraseña: Abcd1234.):
+Los ejecutamos manualmente dentro de MariaDB (contraseña: **Abcd1234.**):
 
 ```bash
 $ sudo docker exec -it mariadb-gym bash
@@ -63,10 +65,10 @@ $ mariadb -u root -p < /scripts/crear\ usuario\ como\ root.sql
 $ mariadb -u ejerciciosgym -p < /scripts/crear\ base\ de\ datos.sql
 ```
 
-También dentro de mariadb modificamos **/etc/mysql/mariadb.conf.d/50-server.cnf**.
+También dentro de MariaDB modificamos **/etc/mysql/mariadb.conf.d/50-server.cnf**.
 
 ```
-bind-address = 0.0.0.0
+27: bind-address = 0.0.0.0
 ```
 
 Copiamos **wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
@@ -74,8 +76,8 @@ Copiamos **wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
 Recargamos ambos servicios:
 
 ```bash
-$ sudo docker compose down
-$ sudo docker compose up -d
+$ sudo docker restart mariadb-gym
+$ sudo docker restart tomee-gym
 ```
 
 ### 4. Configurar reenvio de puertos

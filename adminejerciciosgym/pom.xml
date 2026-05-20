@@ -12,6 +12,10 @@
     <packaging>jar</packaging>
     <name>Administración Ejercicios Gym</name>
     
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

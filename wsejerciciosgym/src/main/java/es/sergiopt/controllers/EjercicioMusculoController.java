@@ -22,7 +22,7 @@ public class EjercicioMusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         EjercicioMusculoDao dao = new EjercicioMusculoDao();
-        List<EjercicioMusculo> ejerciciosMusculos = dao.get();
+        List<EjercicioMusculo> ejerciciosMusculos = dao.getAll();
         return Response.ok(ejerciciosMusculos).build();
     }
 
@@ -31,7 +31,7 @@ public class EjercicioMusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMusculos(@PathParam("idEjercicio") int idEjercicio) {
         EjercicioMusculoDao dao = new EjercicioMusculoDao();
-        List<EjercicioMusculo> ejerciciosMusculos = dao.readMusculos(idEjercicio);
+        List<EjercicioMusculo> ejerciciosMusculos = dao.getMusculos(idEjercicio);
         return ejerciciosMusculos.isEmpty()
             ? Response.status(Response.Status.NOT_FOUND).build()
             : Response.ok(ejerciciosMusculos).build();
@@ -42,7 +42,7 @@ public class EjercicioMusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("idEjercicio") int idEjercicio, @PathParam("idMusculo") int idMusculo) {
         EjercicioMusculoDao dao = new EjercicioMusculoDao();
-        EjercicioMusculo ejercicioMusculo = dao.read(idEjercicio, idMusculo);
+        EjercicioMusculo ejercicioMusculo = dao.get(idEjercicio, idMusculo);
         return ejercicioMusculo == null
             ? Response.status(Response.Status.NOT_FOUND).build()
             : Response.ok(ejercicioMusculo).build();
@@ -53,7 +53,7 @@ public class EjercicioMusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(EjercicioMusculo ejercicioMusculo) {
         EjercicioMusculoDao dao = new EjercicioMusculoDao();
-        boolean añadido = dao.create(ejercicioMusculo);
+        boolean añadido = dao.add(ejercicioMusculo);
         return Boolean.FALSE.equals(añadido)
             ? Response.status(Response.Status.BAD_REQUEST).build()
             : Response.status(Response.Status.OK).build();

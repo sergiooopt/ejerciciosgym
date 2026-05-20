@@ -15,7 +15,7 @@ public class EjercicioDao {
 
     public EjercicioDao() {}    
 
-    public Ejercicio create(Ejercicio ejercicio) {        
+    public Ejercicio add(Ejercicio ejercicio) {        
         String sql = "INSERT INTO ejercicios (nombre, descripcion, ruta_imagen, peso_minimo, peso_maximo) VALUES (?, ?, ?, ?, ?)";
             
             try (Connection conn = ConexionBd.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -65,7 +65,7 @@ public class EjercicioDao {
         return new Ejercicio(idEjercicio, nombre, descripcion, rutaImagen, pesoMinimo, pesoMaximo);
     }
 
-    public List<Ejercicio> get() {
+    public List<Ejercicio> getAll() {
         List<Ejercicio> ejercicios = new ArrayList<>();
         String sql = "SELECT * FROM ejercicios";
 
@@ -82,7 +82,7 @@ public class EjercicioDao {
         return ejercicios;
     }
 
-    public Ejercicio read(int idEjercicio) {
+    public Ejercicio get(int idEjercicio) {
         Ejercicio ejercicio = null;
         String sql = "SELECT * FROM ejercicios WHERE id_ejercicio = ?";
 
