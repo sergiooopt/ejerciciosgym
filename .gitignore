@@ -1,9 +1,9 @@
+ejerciciosgym/**/.gitignore
+ejerciciosgym/**/README.md
 .vscode/
 *.log
 
 # Java
-docs/*.jar
-docs/*.war
 target/
 
 # Flutter

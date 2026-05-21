@@ -33,6 +33,15 @@ public class EjercicioController {
     }
 
     @GET
+    @Path("/{nombre}")
+    @Produces(MediaType.APPLICATION_JSON)    
+    public Response getAllByName(@PathParam("nombre") String nombre) {
+        EjercicioDao dao = new EjercicioDao();
+        List<Ejercicio> ejercicios = dao.getAllByName(nombre);
+        return Response.ok(ejercicios).build();
+    }
+    
+    @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") int id) {

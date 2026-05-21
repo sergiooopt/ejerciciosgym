@@ -82,6 +82,25 @@ public class EjercicioDao {
         return ejercicios;
     }
 
+    public List<Ejercicio> getAllByName(String nombre) {
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        String sql = "SELECT * FROM ejercicios WHERE nombre LIKE '%?%'";
+
+        try (Connection conn = ConexionBd.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, nombre);
+            
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) ejercicios.add(rsToEjercicio(rs));
+            rs.close();        
+        
+        } catch (SQLException e) {
+            System.err.println("Error al leer en bd: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return ejercicios;
+    }
+
     public Ejercicio get(int idEjercicio) {
         Ejercicio ejercicio = null;
         String sql = "SELECT * FROM ejercicios WHERE id_ejercicio = ?";
