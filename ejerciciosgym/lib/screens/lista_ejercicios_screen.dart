@@ -1,4 +1,4 @@
-import 'package:ejerciciosgym/models/ejercicio_model.dart';
+import 'package:ejerciciosgym/core/widgets/elemento_ejercicio_widget.dart';
 import 'package:ejerciciosgym/providers/ejercicios_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,39 +7,34 @@ class ListaEjerciciosScreen extends StatelessWidget {
   const ListaEjerciciosScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
+    final provider = Provider.of<EjerciciosProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Lista de ejercicios')),
-      body: Consumer<EjerciciosProvider>(
-        builder: (context, provider, child) {
-          if (provider.ejercicios.isEmpty) provider.cargar();
+      body: FutureBuilder(
+        future: provider.cargarEjercicios(context),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text(' Error al cargar ejercicios: ${snapshot.error}'),
+            );
+          }
 
-          final ejercicios = provider.ejercicios;
-          return ListView.builder(
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final ejercicios = snapshot.data!;
+          return ListView.separated(
             itemCount: ejercicios.length,
             itemBuilder: (context, index) =>
-                _Ejercicio(ejercicio: ejercicios[index]),
+                ElementoEjercicioWidget(ejercicio: ejercicios[index]),
+            separatorBuilder: (BuildContext context, int index) =>
+                Divider(height: 20, color: Colors.blue),
           );
         },
       ),
-    );
-  }
-}
-
-class _Ejercicio extends StatelessWidget {
-  final EjercicioModel ejercicio;
-
-  const _Ejercicio({required this.ejercicio});
-
-  @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<EjerciciosProvider>(context, listen: false);
-
-    return FutureBuilder(
-      future: provider.getImagen(ejercicio.id), 
-      builder: (context, snapshot) {
-        // rellenar con fade image
-      },
     );
   }
 }

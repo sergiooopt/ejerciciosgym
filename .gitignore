@@ -1,5 +1,4 @@
-ejerciciosgym/**/.gitignore
-ejerciciosgym/**/README.md
+AGENTS.md
 .vscode/
 *.log
 

@@ -12,6 +12,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.File;
@@ -26,18 +27,11 @@ public class EjercicioController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll() {
+    public Response getAll(@QueryParam("nombre") String nombre) {
         EjercicioDao dao = new EjercicioDao();
-        List<Ejercicio> ejercicios = dao.getAll();
-        return Response.ok(ejercicios).build();
-    }
-
-    @GET
-    @Path("/{nombre}")
-    @Produces(MediaType.APPLICATION_JSON)    
-    public Response getAllByName(@PathParam("nombre") String nombre) {
-        EjercicioDao dao = new EjercicioDao();
-        List<Ejercicio> ejercicios = dao.getAllByName(nombre);
+        List<Ejercicio> ejercicios = (nombre != null && !nombre.isEmpty())
+            ? dao.getAllByName(nombre)
+            : dao.getAll();
         return Response.ok(ejercicios).build();
     }
     
@@ -128,7 +122,7 @@ public class EjercicioController {
     }
     
     @DELETE
-    @Path("{/id}/imagen")
+    @Path("/{id}/imagen")
     public Response deleteImagen(@PathParam("id") int id) {
         try {
             EjercicioDao dao = new EjercicioDao();

@@ -31,8 +31,6 @@ $ sudo systemctl start docker
 $ sudo systemctl enable docker
 ```
 
-Copiamos **docs/** en **/home/usuario**.
-
 Levantamos los servicios:
 
 ```bash
@@ -71,7 +69,7 @@ También dentro de MariaDB modificamos **/etc/mysql/mariadb.conf.d/50-server.cnf
 27: bind-address = 0.0.0.0
 ```
 
-Copiamos **wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
+Copiamos **builds/wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
 
 Recargamos ambos servicios:
 

@@ -84,10 +84,10 @@ public class EjercicioDao {
 
     public List<Ejercicio> getAllByName(String nombre) {
         List<Ejercicio> ejercicios = new ArrayList<>();
-        String sql = "SELECT * FROM ejercicios WHERE nombre LIKE '%?%'";
+        String sql = "SELECT * FROM ejercicios WHERE nombre LIKE ?";
 
         try (Connection conn = ConexionBd.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, nombre);
+            statement.setString(1, "%" + nombre + "%");
             
             ResultSet rs = statement.executeQuery();
             while (rs.next()) ejercicios.add(rsToEjercicio(rs));

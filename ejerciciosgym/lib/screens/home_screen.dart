@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ejerciciosgym/core/app.dart';
+import 'package:ejerciciosgym/core/widgets/ejercicios_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,7 +24,17 @@ class HomeScreen extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.manage_search),
-              title: Text('Filtrar ejercicios'),
+              title: Text('Buscar ejercicios'),
+              onTap: () => showSearch(
+                context: context,
+                delegate: EjerciciosSearchDelegate(),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.construction_sharp),
+              title: Text('Configuración'),
+              onTap: () =>
+                  Navigator.of(context).pushNamed(App.configuracion),
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
