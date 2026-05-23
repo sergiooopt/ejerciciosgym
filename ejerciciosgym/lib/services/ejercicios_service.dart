@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ejerciciosgym/models/ejercicio_model.dart';
+import 'package:ejerciciosgym/models/ejercicio_musculos_model.dart';
+import 'package:ejerciciosgym/models/musculo_model.dart';
 import 'package:http/http.dart' as http;
 
 class EjerciciosService {
@@ -9,7 +11,7 @@ class EjerciciosService {
 
   EjerciciosService(this.servidor);
 
-  Future<List<EjercicioModel>> getAll() async {
+  Future<List<EjercicioModel>> getAllEjercicios() async {
     final response = await http.get(
       Uri.parse('http://$servidor:8080/wsejerciciosgym/api/ejercicios'),
     );
@@ -18,13 +20,11 @@ class EjerciciosService {
       final List data = jsonDecode(response.body);
       return data.map((e) => EjercicioModel.fromMap(map: e)).toList();
     } else {
-      throw Exception(
-        "Error al obtener lista de ejercicios, status code ${response.statusCode}",
-      );
+      throw Exception(response.statusCode);
     }
   }
 
-  Future<List<EjercicioModel>> getAllByName(String nombre) async {
+  Future<List<EjercicioModel>> getAllEjerciciosByName(String nombre) async {
     final response = await http.get(
       Uri.parse(
         'http://$servidor:8080/wsejerciciosgym/api/ejercicios?nombre=$nombre',
@@ -35,13 +35,11 @@ class EjerciciosService {
       final List data = jsonDecode(response.body);
       return data.map((e) => EjercicioModel.fromMap(map: e)).toList();
     } else {
-      throw Exception(
-        "Error al obtener lista de ejercicios, status code ${response.statusCode}",
-      );
+      throw Exception(response.statusCode);
     }
   }
 
-  Future<Uint8List> getImage(int id) async {
+  Future<Uint8List> getEjercicioImagen(int id) async {
     final response = await http.get(
       Uri.parse(
         'http://$servidor:8080/wsejerciciosgym/api/ejercicios/$id/imagen',
@@ -52,9 +50,37 @@ class EjerciciosService {
       final data = response.bodyBytes;
       return data;
     } else {
-      throw Exception(
-        "Error al obtener la imagen del ejercicio, status code ${response.statusCode}",
-      );
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<MusculoModel> getMusculoById(int id) async {
+    final response = await http.get(
+      Uri.parse('http://$servidor:8080/wsejerciciosgym/api/musculos/$id'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return MusculoModel.fromMap(map: data);
+    } else {
+      throw Exception(response.statusCode);
+    }
+  }
+
+  Future<List<EjercicioMusculosModel>> getAllMusculosInvolucrados(
+    int idEjercicio,
+  ) async {
+    final response = await http.get(
+      Uri.parse(
+        'http://$servidor:8080/wsejerciciosgym/api/ejerciciomusculo/$idEjercicio',
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      final List data = jsonDecode(response.body);
+      return data.map((e) => EjercicioMusculosModel.fromMap(map: e)).toList();
+    } else {
+      throw Exception(response.statusCode);
     }
   }
 }

@@ -39,9 +39,9 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                 onChanged: (value) => setState(() => _servidor = value),
                 validator: (value) {
                   final regexp = RegExp(
-                    '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.',
+                    '^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}\$',
                   );
-                  if (!regexp.hasMatch(value!)) return 'El servidor debe ser una IP';
+                  if (!regexp.hasMatch(value as String)) return 'El servidor debe ser una IP';
                   return null;
                 },
               ),

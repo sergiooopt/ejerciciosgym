@@ -30,15 +30,6 @@ class EjerciciosSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return _cargarEjercicios(context);
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return _cargarEjercicios(context);
-  }
-
-  FutureBuilder _cargarEjercicios(BuildContext context) {
     final provider = Provider.of<EjerciciosProvider>(context, listen: false);
 
     return FutureBuilder(
@@ -53,16 +44,18 @@ class EjerciciosSearchDelegate extends SearchDelegate {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
-
         final ejercicios = snapshot.data!;
-        return ListView.separated(
+        return ListView.builder(
           itemCount: ejercicios.length,
           itemBuilder: (context, index) =>
-              ElementoEjercicioWidget(ejercicio: ejercicios[index]),
-          separatorBuilder: (BuildContext context, int index) =>
-              Divider(height: 20, color: Colors.blue),
+              ElementoEjercicioWidget(ejercicioImagen: ejercicios[index]),
         );
       },
     );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return buildResults(context);
   }
 }

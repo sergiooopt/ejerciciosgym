@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Ejercicios Gym')),
-      body: Center(child: Image.asset('assets/imagenes/logo.png')),
+      body: Center(child: Image.asset('assets/logo.png')),
       drawer: Drawer(
         child: ListView(
           padding: const EdgeInsets.all(0),
@@ -19,11 +19,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             ListTile(
               leading: Icon(Icons.format_list_bulleted),
-              title: Text('Lista de ejercicios'),
+              title: Text('Ejercicios'),
               onTap: () => Navigator.of(context).pushNamed(App.listaEjercicios),
             ),
             ListTile(
-              leading: Icon(Icons.manage_search),
+              leading: Icon(Icons.search),
               title: Text('Buscar ejercicios'),
               onTap: () => showSearch(
                 context: context,
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.construction_sharp),
+              leading: Icon(Icons.construction),
               title: Text('Configuración'),
               onTap: () =>
                   Navigator.of(context).pushNamed(App.configuracion),
