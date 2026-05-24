@@ -15,18 +15,18 @@ class EjercicioMusculosModel {
 
   factory EjercicioMusculosModel.fromMap({required Map<String, dynamic> map}) =>
       EjercicioMusculosModel(
-        idEjercicio: map['idEjercicio'],
-        idMusculo: map['idMusculo'],
+        idEjercicio: map['id_ejercicio'],
+        idMusculo: map['id_musculo'],
         descripcion: map['descripcion'],
-        esDirecto: map['esDirecto'],
-        porcentajeActivacion: map['porcentajeActivacion'],
+        esDirecto: map['es_directo'],
+        porcentajeActivacion: map['porcentaje_activacion'],
       );
 
   Map<String, dynamic> toMap() => {
-    "idEjercicio": idEjercicio,
-    "idMusculo": idMusculo,
+    "id_ejercicio": idEjercicio,
+    "id_musculo": idMusculo,
     "descripcion": descripcion,
-    "esDirecto": esDirecto,
-    "porcentajeActivacion": porcentajeActivacion,
+    "es_directo": esDirecto,
+    "porcentaje_activacion": porcentajeActivacion,
   };
 }

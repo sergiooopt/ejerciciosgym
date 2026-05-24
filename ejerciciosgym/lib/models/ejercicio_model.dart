@@ -20,17 +20,17 @@ class EjercicioModel {
         id: map['id'],
         nombre: map['nombre'],
         descripcion: map['descripcion'],
-        rutaImagen: map['rutaImagen'],
-        pesoMinimo: map['pesoMinimo'],
-        pesoMaximo: map['pesoMaximo'],
+        rutaImagen: map['ruta_imagen'],
+        pesoMinimo: map['peso_minimo'],
+        pesoMaximo: map['peso_maximo'],
       );
 
   Map<String, dynamic> toMap() => {
     'id': id,
     'nombre': nombre,
     'descripcion': descripcion,
-    'rutaImagen': rutaImagen,
-    'pesoMinimo': pesoMinimo,
-    'pesoMaximo': pesoMaximo,
+    'ruta_imagen': rutaImagen,
+    'peso_minimo': pesoMinimo,
+    'peso_maximo': pesoMaximo,
   };
 }

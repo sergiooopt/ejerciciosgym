@@ -2,8 +2,8 @@ package es.sergiopt.controllers;
 
 import java.util.List;
 
-import es.sergiopt.map.Ejercicio;
-import es.sergiopt.persistence.EjercicioDao;
+import es.sergiopt.daos.EjercicioDao;
+import es.sergiopt.models.Ejercicio;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -24,7 +24,7 @@ import java.nio.file.StandardCopyOption;
 
 @Path("/ejercicios")
 public class EjercicioController {
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(@QueryParam("nombre") String nombre) {

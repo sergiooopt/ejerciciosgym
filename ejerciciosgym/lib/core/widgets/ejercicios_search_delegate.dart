@@ -1,4 +1,5 @@
 import 'package:ejerciciosgym/core/widgets/elemento_ejercicio_widget.dart';
+import 'package:ejerciciosgym/core/widgets/error_ejercicios_widget.dart';
 import 'package:ejerciciosgym/providers/ejercicios_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,11 +36,7 @@ class EjerciciosSearchDelegate extends SearchDelegate {
     return FutureBuilder(
       future: provider.cargarEjerciciosPorNombre(context, query),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(' Error al cargar ejercicios: ${snapshot.error}'),
-          );
-        }
+        if (snapshot.hasError) return ErrorEjerciciosWidget(error: snapshot.error);
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());

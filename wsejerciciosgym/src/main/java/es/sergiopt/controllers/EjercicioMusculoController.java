@@ -2,8 +2,8 @@ package es.sergiopt.controllers;
 
 import java.util.List;
 
-import es.sergiopt.map.EjercicioMusculo;
-import es.sergiopt.persistence.EjercicioMusculoDao;
+import es.sergiopt.daos.EjercicioMusculoDao;
+import es.sergiopt.models.EjercicioMusculo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -15,7 +15,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/ejerciciomusculo")
+@Path("/ejercicio_musculos")
 public class EjercicioMusculoController {
 
     @GET
@@ -53,8 +53,8 @@ public class EjercicioMusculoController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response add(EjercicioMusculo ejercicioMusculo) {
         EjercicioMusculoDao dao = new EjercicioMusculoDao();
-        boolean añadido = dao.add(ejercicioMusculo);
-        return Boolean.FALSE.equals(añadido)
+        EjercicioMusculo musculoInvolucrado = dao.add(ejercicioMusculo);
+        return musculoInvolucrado == null
             ? Response.status(Response.Status.BAD_REQUEST).build()
             : Response.status(Response.Status.OK).build();
     }

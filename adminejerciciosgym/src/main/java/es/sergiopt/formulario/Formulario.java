@@ -7,7 +7,7 @@ package es.sergiopt.formulario;
 import es.sergiopt.map.Ejercicio;
 import es.sergiopt.map.EjercicioMusculo;
 import es.sergiopt.map.Musculo;
-import es.sergiopt.services.EjercicioMusculoService;
+import es.sergiopt.services.EjercicioMusculosService;
 import es.sergiopt.services.EjercicioService;
 import es.sergiopt.services.MusculoService;
 import java.awt.event.ItemEvent;
@@ -58,7 +58,7 @@ public class Formulario extends javax.swing.JFrame {
         // Cargar ejercicios en tabla
         List<Ejercicio> ejercicios = EjercicioService.getAll();
         for (Ejercicio ejercicio : ejercicios) {
-            Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen(), ejercicio.getPesoMinimo(), ejercicio.getPesoMaximo()};
+            Object[] row = {ejercicio.getIdEjercicio(), ejercicio.getNombre(), ejercicio.getRutaImagen(), ejercicio.getPesoMinimo(), ejercicio.getPesoMaximo()};
             tableModel.addRow(row);
         }
     }
@@ -83,7 +83,7 @@ public class Formulario extends javax.swing.JFrame {
         tableModel.setRowCount(1); // sigue conteniendo vacía
         List<Ejercicio> ejercicios = EjercicioService.getAll();
         for (Ejercicio ejercicio : ejercicios) {
-            Object[] row = {ejercicio.getId(), ejercicio.getNombre(), ejercicio.getRutaImagen()};
+            Object[] row = {ejercicio.getIdEjercicio(), ejercicio.getNombre(), ejercicio.getRutaImagen()};
             tableModel.addRow(row);
         }
     }
@@ -534,13 +534,13 @@ public class Formulario extends javax.swing.JFrame {
                         
         // --- idEjercicio se añade al validar formulario contra bd ---        
         Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()))) {
-            musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()));
+        if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) {
+            musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
             JOptionPane.showMessageDialog(this, "Músculo actualizado correctamente");   
             return;         
         }        
 
-        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getId(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));        
+        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getIdMusculo(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));        
         JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
     }//GEN-LAST:event_btnGuardarEjMusculoActionPerformed
 
@@ -578,7 +578,7 @@ public class Formulario extends javax.swing.JFrame {
                 return;
             }
             
-            ejercicio.setId(idEjercicio);
+            ejercicio.setIdEjercicio(idEjercicio);
             EjercicioService.update(idEjercicio, ejercicio);
             
             // Actualizar imagen solo si cambió la ruta
@@ -588,20 +588,20 @@ public class Formulario extends javax.swing.JFrame {
             }
             
             // Reemplazar todos los músculos involucrados
-            EjercicioMusculoService.deleteAll(idEjercicio);
+            EjercicioMusculosService.deleteAll(idEjercicio);
             for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
                 musculoInvolucrado.setIdEjercicio(idEjercicio);
-                EjercicioMusculoService.add(musculoInvolucrado);
+                EjercicioMusculosService.add(musculoInvolucrado);
             }
             
         } else {
             // Insertar
             Ejercicio ejercicioCreado = EjercicioService.add(ejercicio);
-            EjercicioService.addImagen(ejercicioCreado.getId(), new File(txtImagen.getText()));
+            EjercicioService.addImagen(ejercicioCreado.getIdEjercicio(), new File(txtImagen.getText()));
             
             for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
-                musculoInvolucrado.setIdEjercicio(ejercicioCreado.getId());
-                EjercicioMusculoService.add(musculoInvolucrado);
+                musculoInvolucrado.setIdEjercicio(ejercicioCreado.getIdEjercicio());
+                EjercicioMusculosService.add(musculoInvolucrado);
             }
         }
         
@@ -630,7 +630,7 @@ public class Formulario extends javax.swing.JFrame {
                 Ejercicio ejercicio = EjercicioService.get(idEjercicio);
             
                 // Obtener músculos involucrados
-                List<EjercicioMusculo> musculos = EjercicioMusculoService.getAll(idEjercicio);
+                List<EjercicioMusculo> musculos = EjercicioMusculosService.getAll(idEjercicio);
             
                 // Mostrar
                 StringBuilder sb = new StringBuilder();
@@ -667,7 +667,7 @@ public class Formulario extends javax.swing.JFrame {
             txtPesoMaximo.setText(ejercicio.getPesoMaximo() != 0 ? String.valueOf(ejercicio.getPesoMaximo()) : "");
                 
             // Músculos
-            musculosInvolucrados = EjercicioMusculoService.getAll(idEjercicio);          
+            musculosInvolucrados = EjercicioMusculosService.getAll(idEjercicio);          
             cargarDatos = false;            
         }
     }//GEN-LAST:event_tblEjerciciosMouseClicked
@@ -686,8 +686,8 @@ public class Formulario extends javax.swing.JFrame {
             Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
         
             if (idEjercicio != null) {
-                if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()))) { // comprueba si en lista algún idMusculo == idMusculo
-                    EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculoService.get(idEjercicio, musculoSeleccionado.getId());                    
+                if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) { // comprueba si en lista algún idMusculo == idMusculo
+                    EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculosService.get(idEjercicio, musculoSeleccionado.getIdMusculo());                    
                     modificarVistaComponentesMusculo(true);
                     
                     txtDescripcionEjMusculo.setText(musculoSeleccionado.getDescripcion());
@@ -707,7 +707,7 @@ public class Formulario extends javax.swing.JFrame {
     private void btnEliminarEjMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjMusculoActionPerformed
         // Se elimina musculo en memoria
         Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getId()));
+        musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
 
         // Reiniciar campos
         txtDescripcionEjMusculo.setText("");

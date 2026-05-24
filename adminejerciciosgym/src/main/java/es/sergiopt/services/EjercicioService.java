@@ -6,6 +6,7 @@ package es.sergiopt.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import es.sergiopt.map.Ejercicio;
 import es.sergiopt.utils.Constantes;
 import java.io.File;
@@ -31,7 +32,7 @@ public class EjercicioService {
             
             FormularioService.comprobarError(response);
             
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             return mapper.readValue(response.body(), new TypeReference<List<Ejercicio>>() {});
         
         } catch (IOException | InterruptedException e) {
@@ -47,7 +48,7 @@ public class EjercicioService {
             
             FormularioService.comprobarError(response);
             
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             return mapper.readValue(response.body(), Ejercicio.class);
             
         } catch (IOException | InterruptedException e) {
@@ -57,7 +58,7 @@ public class EjercicioService {
     
     public static Ejercicio add(Ejercicio ejercicio) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             String json = mapper.writeValueAsString(ejercicio);
         
             HttpClient client = HttpClient.newHttpClient();
@@ -78,7 +79,7 @@ public class EjercicioService {
     
     public static void update(int idEjercicio, Ejercicio ejercicio) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             String json = mapper.writeValueAsString(ejercicio);
         
             HttpClient client = HttpClient.newHttpClient();

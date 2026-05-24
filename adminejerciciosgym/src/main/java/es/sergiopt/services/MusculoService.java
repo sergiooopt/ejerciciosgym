@@ -6,6 +6,7 @@ package es.sergiopt.services;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import es.sergiopt.map.Musculo;
 import es.sergiopt.utils.Constantes;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class MusculoService {
         
             FormularioService.comprobarError(response);
             
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             return mapper.readValue(response.body(), new TypeReference<List<Musculo>>() {});
         
         } catch (IOException | InterruptedException e) {
@@ -45,7 +46,7 @@ public class MusculoService {
         
             FormularioService.comprobarError(response);
             
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             return mapper.readValue(response.body(), Musculo.class);
         
         } catch (IOException | InterruptedException e) {

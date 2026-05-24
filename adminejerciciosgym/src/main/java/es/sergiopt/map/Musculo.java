@@ -1,7 +1,7 @@
 package es.sergiopt.map;
 
 public class Musculo {
-    private Integer id;
+    private Integer idMusculo;
     private String nombre;
     private String descripcion;
     private String zona;
@@ -9,20 +9,20 @@ public class Musculo {
 
     public Musculo() {}
     
-    public Musculo(Integer id, String nombre, String descripcion, String zona, String grupo) {
-        this.id = id;
+    public Musculo(Integer idMusculo, String nombre, String descripcion, String zona, String grupo) {
+        this.idMusculo = idMusculo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.zona = zona;
         this.grupo = grupo;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdMusculo() {
+        return idMusculo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdMusculo(Integer idMusculo) {
+        this.idMusculo = idMusculo;
     }
 
     public String getNombre() {

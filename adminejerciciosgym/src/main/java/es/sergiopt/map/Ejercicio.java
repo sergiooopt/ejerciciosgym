@@ -1,7 +1,7 @@
 package es.sergiopt.map;
 
 public class Ejercicio {
-    private Integer id;
+    private Integer idEjercicio;
     private String nombre;
     private String descripcion;
     private String rutaImagen;
@@ -10,8 +10,8 @@ public class Ejercicio {
     
     public Ejercicio() {}
     
-    public Ejercicio(Integer id, String nombre, String descripcion, String rutaImagen, Integer pesoMinimo, Integer pesoMaximo) {
-        this.id = id;
+    public Ejercicio(Integer idEjercicio, String nombre, String descripcion, String rutaImagen, Integer pesoMinimo, Integer pesoMaximo) {
+        this.idEjercicio = idEjercicio;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.rutaImagen = rutaImagen;
@@ -19,12 +19,12 @@ public class Ejercicio {
         this.pesoMaximo = pesoMaximo;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdEjercicio() {
+        return idEjercicio;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdEjercicio(Integer idEjercicio) {
+        this.idEjercicio = idEjercicio;
     }
 
     public String getNombre() {
@@ -69,6 +69,6 @@ public class Ejercicio {
 
     @Override
     public String toString() {
-        return "Ejercicio{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", pesoMinimo=" + pesoMinimo + ", pesoMaximo=" + pesoMaximo + '}';
+        return "Ejercicio{" + "idEjercicio=" + idEjercicio + ", nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", pesoMinimo=" + pesoMinimo + ", pesoMaximo=" + pesoMaximo + '}';
     }
 }

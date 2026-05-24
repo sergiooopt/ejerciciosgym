@@ -72,7 +72,7 @@ class EjerciciosService {
   ) async {
     final response = await http.get(
       Uri.parse(
-        'http://$servidor:8080/wsejerciciosgym/api/ejerciciomusculo/$idEjercicio',
+        'http://$servidor:8080/wsejerciciosgym/api/ejercicio_musculos/$idEjercicio',
       ),
     );
 
