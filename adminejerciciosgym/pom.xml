@@ -40,7 +40,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>es.sergiopt.formulario.Formulario</mainClass>
+                        <mainClass>es.sergiopt.formulario.FormularioPrincipal</mainClass>
                     </manifest>
                 </archive>
                 <descriptorRefs>

@@ -7,7 +7,7 @@ package es.sergiopt.services;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import es.sergiopt.map.Ejercicio;
+import es.sergiopt.models.Ejercicio;
 import es.sergiopt.utils.Constantes;
 import java.io.File;
 import java.io.IOException;
@@ -104,7 +104,7 @@ public class EjercicioService {
             FormularioService.comprobarError(response);
             
         } catch (IOException | InterruptedException e) {
-            throw new ServiceException("Error: no se pudo añadir el ejercicio a través del servicio web", e);
+            throw new ServiceException("Error: no se pudo eliminar el ejercicio a través del servicio web", e);
         }    
     }
     
@@ -127,7 +127,7 @@ public class EjercicioService {
             return archivoTemproral;
 
         } catch (IOException | InterruptedException e) {
-            throw new ServiceException("Error al obtener la imagen", e);
+            throw new ServiceException("Error: no se pudo obtenerla imagen asociada al ejercicio", e);
         }
     }
     
@@ -142,7 +142,7 @@ public class EjercicioService {
             FormularioService.comprobarError(response);
             
         } catch (IOException | InterruptedException e) {
-            throw new ServiceException("Error: no se pudo subir la imagen", e);
+            throw new ServiceException("Error: no se pudo subir la imagen asociada al ejercicio a través del servicio web", e);
         }
     }  
     
@@ -155,7 +155,7 @@ public class EjercicioService {
             FormularioService.comprobarError(response);
         
         } catch (IOException | InterruptedException e) {
-            throw new ServiceException("Error: no se pudo eliminar la imagen d e el ejercicio a través del servicio web", e);
+            throw new ServiceException("Error: no se pudo eliminar la imagen de el ejercicio a través del servicio web", e);
         } 
     }   
 }

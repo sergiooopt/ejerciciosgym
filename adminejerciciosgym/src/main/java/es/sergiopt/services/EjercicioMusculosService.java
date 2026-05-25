@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
-import es.sergiopt.map.EjercicioMusculo;
+import es.sergiopt.models.EjercicioMusculo;
 import es.sergiopt.utils.Constantes;
 
 public class EjercicioMusculosService {

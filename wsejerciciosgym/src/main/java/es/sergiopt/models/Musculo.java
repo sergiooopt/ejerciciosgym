@@ -3,7 +3,7 @@ package es.sergiopt.models;
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.json.bind.annotation.JsonbPropertyOrder;
 
-@JsonbPropertyOrder({"id", "nombre", "descripcion", "zona", "grupo"})
+@JsonbPropertyOrder({"id_musculo", "nombre", "descripcion", "zona", "grupo"})
 public class Musculo {
     
     @JsonbProperty("id_musculo")

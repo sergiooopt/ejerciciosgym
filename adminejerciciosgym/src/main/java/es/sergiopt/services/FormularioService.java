@@ -13,7 +13,7 @@ import java.net.http.HttpResponse;
 public class FormularioService {
     
     public static void comprobarError(HttpResponse<?> response) {
-        if (response.statusCode() != 200) 
+        if (response.statusCode() != 200 && response.statusCode() != 204) 
             throw new ServiceException("Error: respuesta fallida, código " + response.statusCode() + " - " + response.body());
     }
 }

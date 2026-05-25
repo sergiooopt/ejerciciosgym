@@ -130,7 +130,7 @@ public class EjercicioController {
         
             if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
         
-            String rutaImagen = ejercicio.getRutaImagen();        
+            String rutaImagen = ejercicio.getRutaImagen();
             Files.delete(java.nio.file.Path.of(rutaImagen));
             
             ejercicio.setRutaImagen(null);

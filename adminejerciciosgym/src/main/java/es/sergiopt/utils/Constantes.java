@@ -11,7 +11,7 @@ package es.sergiopt.utils;
 public class Constantes {
     
     // Si no se pasa parámetro el host es tomcat en local por defecto
-    private static String host = "localhost:8080";
+    private static String host = "localhost";
 
     static {
         // Comprueba -Dhost al arrancar aplicación
@@ -20,6 +20,6 @@ public class Constantes {
     }
 
     // Constante para acceder a servicio web
-    public static final String API = "http://" + host + "/wsejerciciosgym/api/";
+    public static final String API = "http://" + host + ":8080/wsejerciciosgym/api/";
 
 }
