@@ -56,7 +56,7 @@ public class MusculoService {
     
     public static Musculo add(Musculo musculo) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
             String json = mapper.writeValueAsString(musculo);
             
             HttpClient client = HttpClient.newHttpClient();
@@ -80,7 +80,7 @@ public class MusculoService {
             String json = mapper.writeValueAsString(nuevoMusculo);
         
             HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idMusculo))
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "musculos/" + idMusculo))
                     .header("Content-Type", "application/json").header("Accept", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(json)).build();                    
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -95,7 +95,7 @@ public class MusculoService {
     public static void delete(int idMusculo) {
        try {            
             HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicios/" + idMusculo)).DELETE().build();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "musculos/" + idMusculo)).DELETE().build();
             HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
             
             FormularioService.comprobarError(response);

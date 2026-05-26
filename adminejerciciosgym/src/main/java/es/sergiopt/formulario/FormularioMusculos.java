@@ -50,7 +50,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
     
     
     private void recargarMusculos() {
-        tableModel.setRowCount(0);
+        tableModel.setRowCount(1);
         List<Musculo> musculos = MusculoService.getAll();
         for (Musculo musculo : musculos) {
             Object[] row = {musculo.getIdMusculo(), musculo.getNombre()};
@@ -170,22 +170,17 @@ public class FormularioMusculos extends javax.swing.JDialog {
                             .addComponent(lblDetalles))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spTblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGap(20, 20, 20))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardarMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                                .addGap(20, 20, 20))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(spDetalles)
-                        .addGap(20, 20, 20))))
+                            .addComponent(spTblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnGuardarMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)))
+                    .addComponent(spDetalles, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNombre)
                             .addComponent(txtNombre))
@@ -202,9 +197,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
                             .addComponent(lblGrupo)
                             .addComponent(cbGrupo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(spTblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(spTblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(lblDetalles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,49 +225,56 @@ public class FormularioMusculos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEliminarMusculoActionPerformed
 
     private void btnGuardarMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMusculoActionPerformed
-        StringBuilder sbErrores = new StringBuilder();
-        
-        String nombre = txtNombre.getText();
-        if (nombre == null || nombre.isEmpty())
-            sbErrores.append("  - Nombre vacio\n");
-        
-        String descripcion = txtDescripcion.getText();
-        if (descripcion == null || descripcion.isEmpty())
-            sbErrores.append("  - Descripción vacia\n");
-        
-        if (cbZona.getSelectedItem().equals("Seleccionar"))
-            sbErrores.append("  - Zona sin seleccionar\n");
-        
-        if (cbGrupo.getSelectedItem().equals("Seleccionar"))
-            sbErrores.append("- Grupo sin seleccionar");
-        
-        if (!sbErrores.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Formulario incorrecto:\n" + sbErrores.toString());
-            return;
-        }
-        
-        Musculo musculo = new Musculo(null, nombre, descripcion, (String) cbZona.getSelectedItem(), (String) cbGrupo.getSelectedItem());
-        int filaSeleccionada = tblMusculos.getSelectedRow();
-        
-        if (filaSeleccionada > 0 && esMusculoSeleccionado) {
-            // UPDATE
-            Integer idMusculo = (Integer) tableModel.getValueAt(tblMusculos.getSelectedRow(), 0);      
-            
-            if (idMusculo == null) {
-                JOptionPane.showMessageDialog(this, "Músculo seleccionado no válido");
-                return;
+	try {
+            StringBuilder sbErrores = new StringBuilder();
+		
+            String nombre = txtNombre.getText();
+            if (nombre == null || nombre.isEmpty())
+            	sbErrores.append("  - Nombre vacio\n");
+		
+            String descripcion = txtDescripcion.getText();
+            if (descripcion == null || descripcion.isEmpty())
+            	sbErrores.append("  - Descripción vacia\n");
+		
+            if (cbZona.getSelectedItem().equals("Seleccionar"))
+            	sbErrores.append("  - Zona sin seleccionar\n");
+		
+            if (cbGrupo.getSelectedItem().equals("Seleccionar"))
+            	sbErrores.append("- Grupo sin seleccionar");
+		
+            if (!sbErrores.isEmpty()) {
+            	JOptionPane.showMessageDialog(this, "Formulario incorrecto:\n" + sbErrores.toString());
+            	return;
             }
+		
+            Musculo musculo = new Musculo(null, nombre, descripcion, (String) cbZona.getSelectedItem(), (String) cbGrupo.getSelectedItem());
+            int filaSeleccionada = tblMusculos.getSelectedRow();
+		
+            if (filaSeleccionada > 0 && esMusculoSeleccionado) {
+            	// UPDATE
+            	Integer idMusculo = (Integer) tableModel.getValueAt(tblMusculos.getSelectedRow(), 0);      
+			
+            	if (idMusculo == null) {
+            		JOptionPane.showMessageDialog(this, "Músculo seleccionado no válido");
+            		return;
+            	}
+			
+            	musculo.setIdMusculo(idMusculo);
+            	MusculoService.update(idMusculo, musculo);
+            } else {
+            	// INSERT
+            	MusculoService.add(musculo);
+            }
+		
+            reiniciarCampos();
+            recargarMusculos();
+            JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
             
-            musculo.setIdMusculo(idMusculo);
-            MusculoService.update(idMusculo, musculo);
-        } else {
-            // INSERT
-            MusculoService.add(musculo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido algún error desconocido al intentar guardar el formulario");
+            System.err.println("Error al guardar el formulario: " + e.getMessage());
+            e.printStackTrace();
         }
-        
-        reiniciarCampos();
-        recargarMusculos();
-        JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
     }//GEN-LAST:event_btnGuardarMusculoActionPerformed
 
     private void tblMusculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMusculosMouseClicked
@@ -294,7 +294,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
         Musculo musculo = MusculoService.get(idMusculo);        
         if (evt.getClickCount() == 1) {
             StringBuilder sb = new StringBuilder();
-            sb.append("Músculo ").append(musculo.getNombre()).append("\n");
+            sb.append("<> ").append(musculo.getNombre()).append("\n");
             sb.append("  - Descripción: ").append(musculo.getDescripcion()).append("\n");
             sb.append("  - Zona: ").append(musculo.getZona()).append("\n");
             sb.append("  - Grupo: ").append(musculo.getGrupo());
