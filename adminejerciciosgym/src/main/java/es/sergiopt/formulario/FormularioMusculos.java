@@ -86,7 +86,6 @@ public class FormularioMusculos extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(640, 360));
-        setPreferredSize(new java.awt.Dimension(640, 360));
 
         lblNombre.setText("Nombre");
 
@@ -106,6 +105,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
         btnGuardarMusculo.setText("Guardar músculo");
         btnGuardarMusculo.addActionListener(this::btnGuardarMusculoActionPerformed);
 
+        lblDetalles.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDetalles.setText("Detalles");
 
         tblMusculos.setModel(new javax.swing.table.DefaultTableModel(
@@ -188,7 +188,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblDescripcion)
                             .addComponent(txtDescripcion))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblZona)
                             .addComponent(cbZona))
@@ -196,12 +196,12 @@ public class FormularioMusculos extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblGrupo)
                             .addComponent(cbGrupo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
                     .addComponent(spTblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
                 .addComponent(lblDetalles)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .addComponent(spDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminarMusculo)
@@ -213,15 +213,18 @@ public class FormularioMusculos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMusculoActionPerformed
-        Integer idMusculo = (Integer) tableModel.getValueAt(tblMusculos.getSelectedRow(), 0);      
-        if (idMusculo == null) 
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado un músculo");
-        else {
-            MusculoService.delete(idMusculo);
+        int filaSeleccionada = tblMusculos.getSelectedRow();
+        if (filaSeleccionada < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un músculo en la tabla antes de eliminar.");
+            return;
+        }
+
+        Integer idMusculo = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
+        if (idMusculo != null)  {
+            MusculoService.delete(idMusculo);            
             recargarMusculos();
             JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo seleccionado");
-        }
-        
+        }      
     }//GEN-LAST:event_btnEliminarMusculoActionPerformed
 
     private void btnGuardarMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMusculoActionPerformed
@@ -252,8 +255,7 @@ public class FormularioMusculos extends javax.swing.JDialog {
 		
             if (filaSeleccionada > 0 && esMusculoSeleccionado) {
             	// UPDATE
-            	Integer idMusculo = (Integer) tableModel.getValueAt(tblMusculos.getSelectedRow(), 0);      
-			
+            	Integer idMusculo = (Integer) tableModel.getValueAt(tblMusculos.getSelectedRow(), 0);      			
             	if (idMusculo == null) {
             		JOptionPane.showMessageDialog(this, "Músculo seleccionado no válido");
             		return;
@@ -261,14 +263,15 @@ public class FormularioMusculos extends javax.swing.JDialog {
 			
             	musculo.setIdMusculo(idMusculo);
             	MusculoService.update(idMusculo, musculo);
+                JOptionPane.showMessageDialog(this, "Músculo actualizado correctamente");
             } else {
             	// INSERT
             	MusculoService.add(musculo);
+                JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
             }
 		
             reiniciarCampos();
-            recargarMusculos();
-            JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
+            recargarMusculos();            
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido algún error desconocido al intentar guardar el formulario");

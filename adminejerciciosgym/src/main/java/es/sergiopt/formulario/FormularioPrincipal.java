@@ -97,7 +97,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         btnSiEsDirectoEjMusculo.setEnabled(esHabilitado);
         btnGuardarEjMusculo.setEnabled(esHabilitado);
         btnEliminarEjMusculo.setEnabled(esHabilitado);
-    }   
+    }              
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -244,6 +244,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         lblCbMusculos.setText("Músculo");
 
+        cbMusculos.setMaximumSize(new java.awt.Dimension(32767, 200));
         cbMusculos.addItemListener(this::cbMusculosItemStateChanged);
         cbMusculos.addActionListener(this::cbMusculosActionPerformed);
 
@@ -485,7 +486,182 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+	
+	private void btnElegirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirImagenActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "jpeg"));
 
+        int resultado = chooser.showOpenDialog(this);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File imagen = chooser.getSelectedFile();
+            txtImagen.setText(imagen.getAbsolutePath());
+        }
+    }//GEN-LAST:event_btnElegirImagenActionPerformed
+	
+	private void btnEliminarEjMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjMusculoActionPerformed
+        // Se elimina musculo en memoria
+        Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
+        musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
+
+        // Reiniciar campos
+        txtDescripcionEjMusculo.setText("");
+        txtActivacionEjMusculo.setText("");
+        btnNoDirectoEjMusculo.setSelected(true);
+
+        JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo involucrado");
+    }//GEN-LAST:event_btnEliminarEjMusculoActionPerformed
+	
+	private void btnGuardarEjMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEjMusculoActionPerformed
+        StringBuilder sbErrores = new StringBuilder();
+
+        String descripcion = txtDescripcionEjMusculo.getText();
+        if (descripcion == null || descripcion.isEmpty()) sbErrores.append("  - Descripción vacía\n");
+
+        String activacion = txtActivacionEjMusculo.getText();
+        if ((activacion == null || activacion.isEmpty()) || (Integer.parseInt(activacion) < 0 || Integer.parseInt(activacion) > 100)) sbErrores.append("  - Activación vacía o no comprendida entre 0-100");
+
+        if (!sbErrores.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Registro incorrecto:\n" + sbErrores.toString());
+            return;
+        }
+
+        // -- idEjercicio se añade al validar formulario contra bd --
+        Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
+        if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) {
+            musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
+            musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getIdMusculo(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));
+            JOptionPane.showMessageDialog(this, "Músculo actualizado correctamente");
+            return;
+        }
+
+        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getIdMusculo(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));
+        JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
+    }//GEN-LAST:event_btnGuardarEjMusculoActionPerformed        
+	
+	private StringBuilder validarCamposDeFormulario() throws Exception {
+        StringBuilder sbErrores = new StringBuilder();
+
+            String nombre = txtNombreEjercicio.getText();
+            if (nombre == null || nombre.isEmpty())
+                sbErrores.append("  - Nombre vacío\n");
+
+            String descripcion = txtDescripcionEjercicio.getText();
+            if (descripcion == null || descripcion.isEmpty())
+                sbErrores.append("  - Descripción vacía\n");
+
+            if (txtImagen == null || txtImagen.getText().isEmpty())
+                sbErrores.append("  - No se ha validado imagen\n");
+
+            Integer pesoMinimo = null;
+            Integer pesoMaximo = null;
+            try {
+                pesoMinimo = txtPesoMinimo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMinimo.getText()) : null;
+                pesoMaximo = txtPesoMaximo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMaximo.getText()) : null;
+
+            } catch (NumberFormatException e) {
+                sbErrores.append("Peso minimo y peso máximo deben contenedor unicamente números\n");
+            }
+        
+            if (musculosInvolucrados.isEmpty())
+                sbErrores.append("  - No hay músculos involucrados\n");
+            
+            return sbErrores;
+    }
+    
+    private void insertarFormulario(Ejercicio ejercicio) throws Exception {
+        Ejercicio ejercicioCreado = EjercicioService.add(ejercicio);
+        EjercicioService.addImagen(ejercicioCreado.getIdEjercicio(), new File(txtImagen.getText()));
+                
+        for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
+            musculoInvolucrado.setIdEjercicio(ejercicioCreado.getIdEjercicio());
+            EjercicioMusculosService.add(musculoInvolucrado);
+        }
+        
+        JOptionPane.showMessageDialog(this, "Ejercicio guardado correctamente");
+    }
+    
+    private void actualizarFormulario(Ejercicio ejercicio, int filaSeleccionada) throws Exception {
+        Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
+
+       if (idEjercicio == null) {
+            JOptionPane.showMessageDialog(this, "Ejercicio seleccionado no válido.");
+            return;
+        }
+
+        ejercicio.setIdEjercicio(idEjercicio);
+        EjercicioService.update(idEjercicio, ejercicio);
+
+        // Actualizar imagen solo si cambió la ruta
+        String rutaImagenBd = (String) tableModel.getValueAt(filaSeleccionada, 2);
+        if (rutaImagenBd == null || !rutaImagenBd.equals(txtImagen.getText()))
+            EjercicioService.addImagen(idEjercicio, new File(txtImagen.getText()));
+
+        // Reemplazar músculos involucrados              
+        List<EjercicioMusculo> musculosInvolucradosBd = EjercicioMusculosService.getAll(idEjercicio);
+        for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
+            // INSERTAR
+            if (!musculosInvolucradosBd.stream().anyMatch(e -> e.getIdMusculo().equals(musculoInvolucrado.getIdMusculo()))) {
+                musculoInvolucrado.setIdEjercicio(ejercicio.getIdEjercicio());
+                EjercicioMusculosService.add(musculoInvolucrado);
+            // ACTUALIZAR
+            } else
+                EjercicioMusculosService.update(ejercicio.getIdEjercicio(), musculoInvolucrado.getIdMusculo(), musculoInvolucrado);                
+        }
+        
+        // ELIMINAR
+        for (EjercicioMusculo musculoInvolucradoBd : musculosInvolucradosBd) {
+            if (!musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoInvolucradoBd.getIdMusculo())))
+                EjercicioMusculosService.delete(idEjercicio, musculoInvolucradoBd.getIdMusculo());            
+        }
+        
+        JOptionPane.showMessageDialog(this, "Ejercicio actualizado correctamente");
+    }        
+	
+	private void btnGuardarFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarFormularioActionPerformed
+        try {            
+            StringBuilder sbErrores = validarCamposDeFormulario();
+            if (!sbErrores.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Formulario incorrecto:\n" + sbErrores.toString());
+                return;
+            }
+
+            Integer pesoMinimo = txtPesoMinimo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMinimo.getText()) : null;
+            Integer pesoMaximo = txtPesoMaximo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMaximo.getText()) : null;
+            
+            Ejercicio ejercicio = new Ejercicio(null, txtNombreEjercicio.getText(), txtDescripcionEjercicio.getText(), txtImagen.getText(), pesoMinimo, pesoMaximo);
+            int filaSeleccionada = tblEjercicios.getSelectedRow();
+
+            if (filaSeleccionada > 0 && esEjercicioSeleccionado)
+                actualizarFormulario(ejercicio, filaSeleccionada);
+            else
+                insertarFormulario(ejercicio);
+        
+            reiniciarCampos();
+            recargarEjercicios();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido algún error desconocido al intentar guardar el formulario");
+            System.err.println("Error al guardar el formulario: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGuardarFormularioActionPerformed    
+	
+	private void btnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjercicioActionPerformed
+        int filaSeleccionada = tblEjercicios.getSelectedRow();
+        if (filaSeleccionada < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un ejercicio en la tabla antes de eliminar.");
+            return;
+        }
+
+        Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
+        if (idEjercicio != null)  {
+            EjercicioService.deleteImagen(idEjercicio);
+            EjercicioService.delete(idEjercicio);            
+            recargarEjercicios();
+            JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo seleccionado");
+        }
+    }//GEN-LAST:event_btnEliminarEjercicioActionPerformed     
+	
     private void btnNoEsInvolucradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoEsInvolucradoActionPerformed
         modificarVistaComponentesMusculo(false);
     }//GEN-LAST:event_btnNoEsInvolucradoActionPerformed
@@ -493,16 +669,39 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private void btnSiEsInvolucradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiEsInvolucradoActionPerformed
         modificarVistaComponentesMusculo(true);
     }//GEN-LAST:event_btnSiEsInvolucradoActionPerformed
+	
+	 private void cbMusculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMusculosActionPerformed
+        // Parece que no detecta cambios, se sustituye por **ItemStateChanged**        
+    }//GEN-LAST:event_cbMusculosActionPerformed
 
-    private void mitemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSobreActionPerformed
-        ayudaUtil.mostrarAyuda();
-    }//GEN-LAST:event_mitemSobreActionPerformed
+    private void cbMusculosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMusculosItemStateChanged
+        if(evt.getStateChange() == ItemEvent.SELECTED) {            
+            if (tblEjercicios.getSelectedRow() < 0) return;
 
-    private void mitemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSalirActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_mitemSalirActionPerformed
-
-    private void tblEjerciciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEjerciciosMouseClicked
+            Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);
+            Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
+        
+            // Rellena INFORMACIÓN de músculo involucrado
+            if (idEjercicio != null) {
+                if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) { // comprueba si en lista algún idMusculo == idMusculo
+                    EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculosService.get(idEjercicio, musculoSeleccionado.getIdMusculo());                    
+                    modificarVistaComponentesMusculo(true);
+                    
+                    txtDescripcionEjMusculo.setText(musculoSeleccionado.getDescripcion());
+                    txtActivacionEjMusculo.setText(String.valueOf(ejercicioMusculoSeleccionado.getPorcentajeActivacion()));
+                
+                    if (ejercicioMusculoSeleccionado.getEsDirecto()) btnSiEsDirectoEjMusculo.setSelected(true);
+                    else btnNoDirectoEjMusculo.setSelected(true);
+                } else {
+                    txtDescripcionEjMusculo.setText("");
+                    txtActivacionEjMusculo.setText("");
+                    btnNoDirectoEjMusculo.setSelected(true);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbMusculosItemStateChanged
+	
+	private void tblEjerciciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEjerciciosMouseClicked
         Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);            
         if (evt.getClickCount() == 1 && idEjercicio == null) {
             txtaDetallesEjercicio.setText("");
@@ -555,39 +754,8 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             musculosInvolucrados = EjercicioMusculosService.getAll(idEjercicio);                   
         }
     }//GEN-LAST:event_tblEjerciciosMouseClicked
-
-    private void cbMusculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMusculosActionPerformed
-        // Parece que no detecta cambios, se sustituye por **ItemStateChanged**        
-    }//GEN-LAST:event_cbMusculosActionPerformed
-
-    private void cbMusculosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMusculosItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED) {            
-            if (tblEjercicios.getSelectedRow() < 0) return;
-
-            Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);
-            Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        
-            // Rellena INFORMACIÓN de músculo involucrado
-            if (idEjercicio != null) {
-                if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) { // comprueba si en lista algún idMusculo == idMusculo
-                    EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculosService.get(idEjercicio, musculoSeleccionado.getIdMusculo());                    
-                    modificarVistaComponentesMusculo(true);
-                    
-                    txtDescripcionEjMusculo.setText(musculoSeleccionado.getDescripcion());
-                    txtActivacionEjMusculo.setText(String.valueOf(ejercicioMusculoSeleccionado.getPorcentajeActivacion()));
-                
-                    if (ejercicioMusculoSeleccionado.getEsDirecto()) btnSiEsDirectoEjMusculo.setSelected(true);
-                    else btnNoDirectoEjMusculo.setSelected(true);
-                } else {
-                    txtDescripcionEjMusculo.setText("");
-                    txtActivacionEjMusculo.setText("");
-                    btnNoDirectoEjMusculo.setSelected(true);
-                }
-            }
-        }
-    }//GEN-LAST:event_cbMusculosItemStateChanged
-
-    private void mitemEditarMusculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemEditarMusculosActionPerformed
+	
+	private void mitemEditarMusculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemEditarMusculosActionPerformed
         FormularioMusculos formularioMusculos = new FormularioMusculos(this, true);
         formularioMusculos.setVisible(true);
         
@@ -601,156 +769,15 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         musculos.addAll(MusculoService.getAll());
         for (Musculo musculo : musculos) 
             cbMusculos.addItem(musculo);  
-    }//GEN-LAST:event_mitemEditarMusculosActionPerformed
+    }//GEN-LAST:event_mitemEditarMusculosActionPerformed      
+	
+    private void mitemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSobreActionPerformed
+        ayudaUtil.mostrarAyuda();
+    }//GEN-LAST:event_mitemSobreActionPerformed
 
-    private void btnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjercicioActionPerformed
-        int filaSeleccionada = tblEjercicios.getSelectedRow();
-        if (filaSeleccionada < 0) {
-            JOptionPane.showMessageDialog(this, "Seleccione un ejercicio en la tabla antes de eliminar.");
-            return;
-        }
-
-        Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
-        if (idEjercicio != null)  {
-            EjercicioService.deleteImagen(idEjercicio);
-            EjercicioService.delete(idEjercicio);
-            recargarEjercicios();
-        }
-    }//GEN-LAST:event_btnEliminarEjercicioActionPerformed
-
-    private void btnGuardarFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarFormularioActionPerformed
-        try {
-            // Validar campos del formulario
-            StringBuilder sbErrores = new StringBuilder();
-
-            String nombre = txtNombreEjercicio.getText();
-            if (nombre == null || nombre.isEmpty())
-                sbErrores.append("  - Nombre vacío\n");
-
-            String descripcion = txtDescripcionEjercicio.getText();
-            if (descripcion == null || descripcion.isEmpty())
-                sbErrores.append("  - Descripción vacía\n");
-
-            if (txtImagen == null || txtImagen.getText().isEmpty())
-                sbErrores.append("  - No se ha validado imagen\n");
-
-            Integer pesoMinimo = null;
-            Integer pesoMaximo = null;
-            try {
-                pesoMinimo = txtPesoMinimo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMinimo.getText()) : null;
-                pesoMaximo = txtPesoMaximo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMaximo.getText()) : null;
-
-            } catch (NumberFormatException e) {
-                sbErrores.append("Peso minimo y peso máximo deben contenedor unicamente números\n");
-            }
-        
-            if (musculosInvolucrados.isEmpty())
-            sbErrores.append("  - No hay músculos involucrados\n");
-
-            if (!sbErrores.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Formulario incorrecto:\n" + sbErrores.toString());
-                return;
-            }
-
-            Ejercicio ejercicio = new Ejercicio(null, nombre, descripcion, txtImagen.getText(), pesoMinimo, pesoMaximo);
-            int filaSeleccionada = tblEjercicios.getSelectedRow();
-
-            if (filaSeleccionada > 0 && esEjercicioSeleccionado) {
-                // Actualizar
-                Integer idEjercicio = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
-
-                if (idEjercicio == null) {
-                    JOptionPane.showMessageDialog(this, "Ejercicio seleccionado no válido.");
-                    return;
-                }
-
-                ejercicio.setIdEjercicio(idEjercicio);
-                EjercicioService.update(idEjercicio, ejercicio);
-
-                // Actualizar imagen solo si cambió la ruta
-                String rutaImagenBd = (String) tableModel.getValueAt(filaSeleccionada, 2);
-                if (rutaImagenBd == null || !rutaImagenBd.equals(txtImagen.getText()))
-                EjercicioService.addImagen(idEjercicio, new File(txtImagen.getText()));
-
-                // Reemplazar todos los músculos involucrados
-                EjercicioMusculosService.deleteAll(idEjercicio);
-                for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
-                    musculoInvolucrado.setIdEjercicio(idEjercicio);
-                    EjercicioMusculosService.add(musculoInvolucrado);
-                }
-
-            } else {
-                // Insertar
-                Ejercicio ejercicioCreado = EjercicioService.add(ejercicio);
-                EjercicioService.addImagen(ejercicioCreado.getIdEjercicio(), new File(txtImagen.getText()));
-                
-                for (EjercicioMusculo musculoInvolucrado : musculosInvolucrados) {
-                    musculoInvolucrado.setIdEjercicio(ejercicioCreado.getIdEjercicio());
-                    EjercicioMusculosService.add(musculoInvolucrado);
-                }
-            }
-
-            reiniciarCampos();
-            recargarEjercicios();
-            JOptionPane.showMessageDialog(this, "Ejercicio guardado correctamente");
-        
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido algún error desconocido al intentar guardar el formulario");
-            System.err.println("Error al guardar el formulario: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnGuardarFormularioActionPerformed
-
-    private void btnGuardarEjMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEjMusculoActionPerformed
-        StringBuilder sbErrores = new StringBuilder();
-
-        String descripcion = txtDescripcionEjMusculo.getText();
-        if (descripcion == null || descripcion.isEmpty()) sbErrores.append("  - Descripción vacía\n");
-
-        String activacion = txtActivacionEjMusculo.getText();
-        if ((activacion == null || activacion.isEmpty()) || (Integer.parseInt(activacion) < 0 || Integer.parseInt(activacion) > 100)) sbErrores.append("  - Activación vacía o no comprendida entre 0-100");
-
-        if (!sbErrores.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Registro incorrecto:\n" + sbErrores.toString());
-            return;
-        }
-
-        // -- idEjercicio se añade al validar formulario contra bd --
-        Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) {
-            musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
-            musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getIdMusculo(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));
-            JOptionPane.showMessageDialog(this, "Músculo actualizado correctamente");
-            return;
-        }
-
-        musculosInvolucrados.add(new EjercicioMusculo(null, musculoSeleccionado.getIdMusculo(), descripcion, btnSiEsDirectoEjMusculo.isSelected(), Integer.valueOf(activacion)));
-        JOptionPane.showMessageDialog(this, "Músculo guardado correctamente");
-    }//GEN-LAST:event_btnGuardarEjMusculoActionPerformed
-
-    private void btnElegirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElegirImagenActionPerformed
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "jpeg"));
-
-        int resultado = chooser.showOpenDialog(this);
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            File imagen = chooser.getSelectedFile();
-            txtImagen.setText(imagen.getAbsolutePath());
-        }
-    }//GEN-LAST:event_btnElegirImagenActionPerformed
-
-    private void btnEliminarEjMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjMusculoActionPerformed
-        // Se elimina musculo en memoria
-        Musculo musculoSeleccionado = (Musculo) cbMusculos.getSelectedItem();
-        musculosInvolucrados.removeIf(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()));
-
-        // Reiniciar campos
-        txtDescripcionEjMusculo.setText("");
-        txtActivacionEjMusculo.setText("");
-        btnNoDirectoEjMusculo.setSelected(true);
-
-        JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo involucrado");
-    }//GEN-LAST:event_btnEliminarEjMusculoActionPerformed
+    private void mitemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_mitemSalirActionPerformed                 
 
     /**
      * @param args the command line arguments

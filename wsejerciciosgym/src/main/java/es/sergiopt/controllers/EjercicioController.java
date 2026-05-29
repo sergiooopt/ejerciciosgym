@@ -25,6 +25,8 @@ import java.nio.file.StandardCopyOption;
 @Path("/ejercicios")
 public class EjercicioController {
     
+    private static final String RUTA_IMAGEN = "/opt/ejerciciosgym/imagenes/";
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(@QueryParam("nombre") String nombre) {
@@ -88,7 +90,7 @@ public class EjercicioController {
         
         if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
             
-        File file = new File(ejercicio.getRutaImagen());
+        File file = new File(RUTA_IMAGEN + ejercicio.getRutaImagen());
         return !file.exists()
             ? Response.status(Response.Status.NOT_FOUND).build()
             : Response.ok(file).build();
@@ -105,11 +107,11 @@ public class EjercicioController {
             if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
                 
             String nombreEjercicio = ejercicio.getNombre().trim().toLowerCase().replaceAll(" ", "_").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u");
-            java.nio.file.Path ruta = Paths.get("/opt/ejerciciosgym/imagenes/", id + "-" + nombreEjercicio + ".jpg");
+            java.nio.file.Path ruta = Paths.get(RUTA_IMAGEN, id + "-" + nombreEjercicio + ".jpg");
             Files.copy(input, ruta, StandardCopyOption.REPLACE_EXISTING);
             
-            // Actualizar cambio de ruta en bd
-            ejercicio.setRutaImagen(ruta.toString());
+            // Guardar ruta relativa en bd
+            ejercicio.setRutaImagen(id + "-" + nombreEjercicio + ".jpg");
             dao.update(id, ejercicio);
             
             // Devolver respuesta 200
@@ -131,7 +133,7 @@ public class EjercicioController {
             if (ejercicio == null) return Response.status(Response.Status.NOT_FOUND).build();
         
             String rutaImagen = ejercicio.getRutaImagen();
-            Files.delete(java.nio.file.Path.of(rutaImagen));
+            Files.delete(java.nio.file.Path.of(RUTA_IMAGEN + rutaImagen));
             
             ejercicio.setRutaImagen(null);
             dao.update(id, ejercicio);

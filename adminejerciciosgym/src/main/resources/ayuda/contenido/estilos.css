@@ -41,26 +41,6 @@ code {
     font-size: 0.95em;
 }
 
-.flujo {
-    padding: 12px 16px;
-    margin: 15px 0;
-}
-
-.resumen {
-    border: 1px solid #d4e6f1;
-    border-radius: 5px;
-}
-
-.resumen a {
-    color: #2980b9;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.resumen a:hover { 
-    text-decoration: underline; 
-}
-
 .campo {
     margin: 6px 0;
     padding-left: 10px;

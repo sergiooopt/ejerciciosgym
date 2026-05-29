@@ -8,6 +8,7 @@
         <tocitem text="Formulario de músculos involucrados" target="seccion_musculos"/>
         <tocitem text="Ejercicios cargados en base de datos" target="seccion_ejercicios_cargados"/>
         <tocitem text="Detalles del ejercicio seleccionado" target="seccion_detalles"/>
+        <tocitem text="Editar músculos" target="seccion_editar_musculos"/>
         <tocitem text="Flujo de uso recomendado" target="flujo_uso"/>
     </tocitem>
 </toc>

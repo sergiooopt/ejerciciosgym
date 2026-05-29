@@ -1,19 +1,22 @@
 # Configurar Servidor Debian
 
-Esta guía es sobre levantar el entorno de **ejerciciosgym**
+Esta guía es sobre levantar el entorno de **ejerciciosgym**.
 
-Debemos tener la carpeta **docs/** del repositorio [**ejerciciosgym**](https://github.com/sergiooopt/ejerciciosgym.git). Además se asume que está en **/home/usuario**.
+Debemos clonar el repositorio para acceder a la configuración y la compilación del servicio web:
+
+```bash
+git clone https://github.com/sergiooopt/ejerciciosgym.git
+```
 
 ### 1. Crear directorios de la aplicación
 
-Creamos los directorio:
+Creamos los directorios:
 
 ```bash
-$ sudo mkdir /opt/ejerciciosgym
-$ sudo mkdir /opt/ejerciciosgym/imagenes
+$ sudo mkdir -p /opt/ejerciciosgym/imagenes
 $ sudo mkdir /opt/ejerciciosgym/mariadb
 $ sudo mkdir /opt/ejerciciosgym/tomee
-$ sudo chown -R usuario:usuario /opt/ejerciciosgym
+$ sudo chown -R $USER:$USER /opt/ejerciciosgym
 ```
 ### 2. Instalar y levantar Docker
 
@@ -82,7 +85,7 @@ $ sudo docker restart tomee-gym
 
 <p style="color:red;">¡Realizar si el servidor está alojado en una máquina virtual!</p>
 
-Configuramos la salida de los puertos para Mariadb y TomEE.
+Configuramos la salida de los puertos para MariaDB y TomEE:
 
-* Mariadb: anfitrión 3306 invitado 3306
+* MariaDB: anfitrión 3306 invitado 3306
 * TomEE: anfitrión 8080 invitado 8080

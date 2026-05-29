@@ -67,18 +67,35 @@ public class EjercicioMusculosService {
             throw new ServiceException("Error: no se pudo añadir el ejercicio a través del servicio web", e);
         }
     }    
-
-    public static void deleteAll(int idEjercicio) {
+    
+    public static void update(int idEjercicio, int idMusculo, EjercicioMusculo musculoInvolucrado) {
+        try {
+            ObjectMapper mapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+            String json = mapper.writeValueAsString(musculoInvolucrado);
+        
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicio_musculos/" + idEjercicio + "/" + idMusculo))                    
+                    .header("Content-Type", "application/json").header("Accept", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(json)).build();                    
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            
+            FormularioService.comprobarError(response);
+            
+        } catch (IOException | InterruptedException e) {
+            throw new ServiceException("Error: no se puede actualizar el músculo involucrado a través del servicio web", e);
+        }
+    }
+    
+    public static void delete(int idEjercicio, int idMusculo) {
         try {            
             HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicio_musculos/" + idEjercicio)).DELETE().build();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(Constantes.API + "ejercicio_musculos/" + idEjercicio + "/" + idMusculo)).DELETE().build();
             HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
             
             FormularioService.comprobarError(response);
             
         } catch (IOException | InterruptedException e) {
-            throw new ServiceException("Error: no se pudo añadir el ejercicio a través del servicio web", e);
-        }
-    }    
-
+            throw new ServiceException("Error: no se pudo eliminar el músculo involucrado a través del servicio web", e);
+        }    
+    }
 }

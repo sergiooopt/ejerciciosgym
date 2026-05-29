@@ -10,7 +10,7 @@ package es.sergiopt.utils;
  */
 public class Constantes {
     
-    // Si no se pasa parámetro el host es tomcat en local por defecto
+    // Si no se pasa parámetro es localhost
     private static String host = "localhost";
 
     static {

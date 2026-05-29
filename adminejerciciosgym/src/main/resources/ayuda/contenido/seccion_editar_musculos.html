@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar músculos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<h1>Editar músculos</h1>
+
+<p>
+    Ventana de diálogo que permite gestionar el catálogo de músculos del sistema.
+    Se abre desde el menú <strong>Editar &gt; Editar músculos</strong> (Ctrl+Alt+E).
+    Desde esta ventana se pueden crear, modificar y eliminar músculos de forma
+    independiente a los ejercicios.
+</p>
+
+<h2>Secciones de la interfaz</h2>
+
+<h3>Formulario de músculo (izquierda)</h3>
+
+<div class="campo">
+    <strong>Nombre</strong><br>Texto que identifica el músculo (ej: "Pectoral mayor").
+    Campo obligatorio.
+</div>
+
+<div class="campo">
+    <strong>Descripción</strong><br>Descripción breve del músculo. Campo obligatorio.
+</div>
+
+<div class="campo">
+    <strong>Zona</strong><br>Desplegable con la zona anatómica a la que pertenece el
+    músculo. Las opciones disponibles son: <strong>SUPERIOR</strong>,
+    <strong>INFERIOR</strong> y <strong>CORE</strong>. Es obligatorio seleccionar
+    un valor distinto de "Seleccionar".
+</div>
+
+<div class="campo">
+    <strong>Grupo</strong><br>Desplegable con el grupo muscular al que pertenece.
+    Las opciones disponibles son: <strong>PECHO</strong>, <strong>ESPALDA</strong>,
+    <strong>HOMBRO</strong>, <strong>BRAZO</strong>, <strong>LUMBARES</strong>,
+    <strong>ABDOMINALES</strong> y <strong>PIERNA</strong>. Es obligatorio
+    seleccionar un valor distinto de "Seleccionar".
+</div>
+
+<h3>Tabla de músculos (derecha)</h3>
+<p>
+    Muestra todos los músculos existentes en el sistema con las columnas
+    <strong>Id</strong> y <strong>Nombre</strong>. Los datos se cargan
+    automáticamente al abrir la ventana.
+</p>
+
+<ul>
+    <li><strong>Un clic</strong> en una fila: muestra los detalles completos
+        del músculo en el área de texto inferior.</li>
+    <li><strong>Doble clic</strong> en una fila: carga los datos del músculo
+        en los campos del formulario para su edición.</li>
+</ul>
+
+<h3>Detalles (inferior)</h3>
+<p>
+    Área de texto no editable que muestra la información completa del músculo
+    seleccionado en la tabla: nombre, descripción, zona y grupo muscular.
+    Se actualiza automáticamente al hacer clic sobre cualquier fila.
+</p>
+
+<h2>Botones</h2>
+
+<div class="campo">
+    <strong>Guardar músculo</strong><br>Guarda el músculo con los datos
+    introducidos en el formulario. Si se ha seleccionado un músculo existente
+    en la tabla (doble clic), lo actualiza. Si no hay selección previa,
+    crea un músculo nuevo. Valida que el nombre, la descripción, la zona
+    y el grupo sean correctos antes de guardar.
+</div>
+
+<div class="campo">
+    <strong>Eliminar músculo</strong><br>Elimina de la base de datos el
+    músculo seleccionado en la tabla. Es necesario tener una fila
+    seleccionada para poder usarlo.
+</div>
+
+<h2>Nota</h2>
+<p>
+    Al cerrar la ventana, el catálogo de músculos del formulario principal
+    se refresca automáticamente para reflejar los cambios realizados.
+</p>
+
+</body>
+</html>

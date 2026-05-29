@@ -8,5 +8,6 @@
     <mapID target="seccion_musculos" url="contenido/seccion_musculos.html"/>
     <mapID target="seccion_ejercicios_cargados" url="contenido/seccion_ejercicios_cargados.html"/>
     <mapID target="seccion_detalles" url="contenido/seccion_detalles.html"/>
+    <mapID target="seccion_editar_musculos" url="contenido/seccion_editar_musculos.html"/>
     <mapID target="flujo_uso" url="contenido/flujo_uso.html"/>
 </map>
