@@ -214,17 +214,20 @@ public class FormularioMusculos extends javax.swing.JDialog {
 
     private void btnEliminarMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMusculoActionPerformed
         int filaSeleccionada = tblMusculos.getSelectedRow();
-        if (filaSeleccionada < 0) {
+        if (filaSeleccionada < 1) {
             JOptionPane.showMessageDialog(this, "Seleccione un músculo en la tabla antes de eliminar.");
             return;
         }
 
-        Integer idMusculo = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
-        if (idMusculo != null)  {
-            MusculoService.delete(idMusculo);            
-            recargarMusculos();
-            JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo seleccionado");
-        }      
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar el músculo?");   
+        if (opcion == JOptionPane.YES_OPTION) {
+            Integer idMusculo = (Integer) tableModel.getValueAt(filaSeleccionada, 0);
+            if (idMusculo != null)  {
+                MusculoService.delete(idMusculo);            
+                recargarMusculos();
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el músculo seleccionado");
+            }      
+        }        
     }//GEN-LAST:event_btnEliminarMusculoActionPerformed
 
     private void btnGuardarMusculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMusculoActionPerformed

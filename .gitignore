@@ -1,8 +1,8 @@
-AGENTS.md
 .vscode/
 *.log
 
 # Java
+nb-configuration.xml
 target/
 
 # Flutter
