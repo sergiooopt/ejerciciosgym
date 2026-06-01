@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Providers extends StatelessWidget {
-  final String? ipServidor;
+  final String? servidor;
 
-  const Providers({super.key, this.ipServidor});
+  const Providers({super.key, this.servidor});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class Providers extends StatelessWidget {
           create: (context) => EjerciciosProvider(),
         ),
         ChangeNotifierProvider<ConfiguracionProvider>(
-          create: (context) => ConfiguracionProvider(servidor: ipServidor),
+          create: (context) => ConfiguracionProvider(servidor: servidor),
         ),
       ],
       child: App(),

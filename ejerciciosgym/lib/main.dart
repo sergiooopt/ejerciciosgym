@@ -9,5 +9,5 @@ void main() async {
   final ip = preferences.getString('servidor.ip');
 
   // Cargar providers con ip
-  runApp(Providers(ipServidor: ip));
+  runApp(Providers(servidor: ip));
 }

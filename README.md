@@ -1,7 +1,7 @@
 # ejerciciosgym
 
 Proyecto de fin de ciclo de **Desarrollo de Aplicaciones Multiplataforma**.  
-Sistema de gestión de ejercicios de gimnasio que se comunica a través de una API REST.
+Sistema para la gestión de ejercicios de gimnasio mediante una API REST.
 
 ## Estructura del proyecto
 
@@ -10,9 +10,28 @@ ejerciciosgym/
 │
 ├── adminejerciciosgym/   Aplicación de administración desarrollada con Java Swing
 ├── docs/                 Documentación, scripts y entorno de docker
+│   └── builds/           Servicio web y aplicación Java Swing compilados
 ├── ejerciciosgym/        Aplicación móvil desarrollada con Flutter
 └── wsejerciciosgym/      API REST desarrollada con Jakarta EE y JDBC
 ```
+
+## Entorno de desarrollo
+
+El proyecto necesita de un servidor para funcionar, guía de instalación [aquí](docs/configurar%20servidor.md).
+
+La aplicación Java Swing permite pasar como parámetro de la máquina virtual la IP del servidor:
+
+```bash
+java -jar -Dhost=127.0.0.1 docs/builds/adminejerciciosgym-jar-with-dependencies.jar
+```
+
+La aplicación móvil tiene un apartado de configuración donde se puede cambiar la dirección IP del servidor.
+
+## Uso de IA
+
+Durante el desarrollo se usaron Opencode con Deepseek V4 Flash en modo plan y GPT-5.5 Instant para resolver dudas con excepción de la implementación de Java Help con el modo build de Opencode.
+
+Se incluye el archivo [AGENTS.md](AGENTS.md) como forma de mostrar conocimientos básicos en IA.
 
 ## Licencia
 
