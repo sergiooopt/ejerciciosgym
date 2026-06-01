@@ -1,31 +1,19 @@
 # ejerciciosgym
 
 Proyecto de fin de ciclo de **Desarrollo de Aplicaciones Multiplataforma**.  
-Sistema de gestión de ejercicios de gimnasio compuesto por tres componentes que se comunican a través de una API REST.
+Sistema de gestión de ejercicios de gimnasio que se comunica a través de una API REST.
 
-## Arquitectura general
+## Estructura del proyecto
 
-```
-┌───────────────────────┐     HTTP/JSON       ┌───────────────────┐
-│   ejerciciosgym       │ ──────────────────→ │                   │
-│   (Flutter mobile)    │                     │  wsejerciciosgym  │
-│                       │ ←────────────────── │  (Jakarta EE 10)  │
-│                       │    JSON + imágenes  │                   │
-│                       │                     │       │           │
-│                       │                     │  JDBC │           │
-│                       │                     │       ↓           │
-│                       │                     │  ┌──────────┐     │
-│                       │                     │  │ MariaDB  │     │
-│                       │                     │  └──────────┘     │
-├───────────────────────┤                     └───────────────────┘
-│ adminejerciciosgym    │     HTTP/JSON               ↑
-│ (Java Swing desktop)  │ ────────────────────────────┘
-│                       │
-│ Ayuda integrada       │
-│ (JavaHelp)            │
-└───────────────────────┘
+```text
+ejerciciosgym/
+│
+├── adminejerciciosgym/   Aplicación de administración desarrollada con Java Swing
+├── docs/                 Documentación, scripts y entorno de docker
+├── ejerciciosgym/        Aplicación móvil desarrollada con Flutter
+└── wsejerciciosgym/      API REST desarrollada con Jakarta EE y JDBC
 ```
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE) para más detalles.
+MIT - ver [LICENSE](LICENSE) para más detalles.

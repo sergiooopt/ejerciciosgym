@@ -60,7 +60,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         // Cargar ejercicios en tabla
         List<Ejercicio> ejercicios = EjercicioService.getAll();
         for (Ejercicio ejercicio : ejercicios) {
-            Object[] row = {ejercicio.getIdEjercicio(), ejercicio.getNombre(), ejercicio.getRutaImagen(), ejercicio.getPesoMinimo(), ejercicio.getPesoMaximo()};
+            Object[] row = {ejercicio.getIdEjercicio(), ejercicio.getNombre(), ejercicio.getRutaImagen()};
             tableModel.addRow(row);
         }
     }
@@ -74,6 +74,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         cbMusculos.setSelectedIndex(0);
         txtDescripcionEjMusculo.setText("");
         txtActivacionEjMusculo.setText("");
+        btnNoEsInvolucrado.setSelected(true);
         btnNoDirectoEjMusculo.setSelected(true);
         txtaDetallesEjercicio.setText("");
         
@@ -90,7 +91,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         }
     }
     
-    private void modificarVistaComponentesMusculo(boolean esHabilitado) {
+    private void modificarVistaComponentesMusculo(boolean esHabilitado) {          
         txtDescripcionEjMusculo.setEnabled(esHabilitado);
         txtActivacionEjMusculo.setEnabled(esHabilitado);
         btnNoDirectoEjMusculo.setEnabled(esHabilitado);
@@ -163,6 +164,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         lblEjercicio.setText("Ejercicio");
 
         pnlEjercicio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlEjercicio.setPreferredSize(new java.awt.Dimension(350, 150));
 
         lblNombreEjercicio.setText("Nombre");
 
@@ -215,7 +217,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         pnlEjercicioLayout.setVerticalGroup(
             pnlEjercicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlEjercicioLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(pnlEjercicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreEjercicio)
                     .addComponent(lblNombreEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -234,13 +236,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addComponent(txtPesoMinimo)
                     .addComponent(lblPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPesoMaximo))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         lblMusculos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMusculos.setText("Músculos involucrados");
 
         pnlMusculos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlMusculos.setPreferredSize(new java.awt.Dimension(350, 150));
 
         lblCbMusculos.setText("Músculo");
 
@@ -299,10 +302,10 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addGroup(pnlMusculosLayout.createSequentialGroup()
                         .addComponent(lblActivacionEjMusculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPorcentajeActivacionEjMusculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                         .addComponent(lblEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,7 +322,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                                 .addComponent(txtDescripcionEjMusculo))
                             .addGroup(pnlMusculosLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addComponent(cbMusculos, 0, 155, Short.MAX_VALUE)
+                                .addComponent(cbMusculos, 0, 160, Short.MAX_VALUE)
                                 .addGap(51, 51, 51)
                                 .addComponent(lblEsInvolucrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -337,18 +340,18 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         pnlMusculosLayout.setVerticalGroup(
             pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMusculosLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCbMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEsInvolucrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNoEsInvolucrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSiEsInvolucrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcionEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescripcionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,7 +359,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSiEsDirectoEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblPorcentajeActivacionEjMusculo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarEjMusculo)
                     .addComponent(btnEliminarEjMusculo))
@@ -368,6 +371,8 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         lblEjerciciosCargados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEjerciciosCargados.setText("Ejercicios cargados");
+
+        spEjercicios.setPreferredSize(new java.awt.Dimension(32767, 32767));
 
         tblEjercicios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -408,6 +413,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         txtaDetallesEjercicio.setEditable(false);
         txtaDetallesEjercicio.setColumns(20);
         txtaDetallesEjercicio.setRows(5);
+        txtaDetallesEjercicio.setPreferredSize(new java.awt.Dimension(300, 200));
         spDetallesEjercicio.setViewportView(txtaDetallesEjercicio);
 
         menuEditar.setText("Editar");
@@ -440,26 +446,26 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                     .addComponent(lblEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                     .addComponent(btnGuardarFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEjerciciosCargados)
                     .addComponent(lblDetallesEjercicio)
-                    .addComponent(spEjercicios, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                    .addComponent(spEjercicios, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
                     .addComponent(spDetallesEjercicio)
                     .addComponent(btnEliminarEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblEjerciciosCargados)
@@ -474,14 +480,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblEjercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                         .addGap(47, 47, 47)
                         .addComponent(lblMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardarFormulario)))
-                .addGap(20, 20, 20))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -517,8 +523,15 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         String descripcion = txtDescripcionEjMusculo.getText();
         if (descripcion == null || descripcion.isEmpty()) sbErrores.append("  - Descripción vacía\n");
 
-        String activacion = txtActivacionEjMusculo.getText();
-        if ((activacion == null || activacion.isEmpty()) || (Integer.parseInt(activacion) < 0 || Integer.parseInt(activacion) > 100)) sbErrores.append("  - Activación vacía o no comprendida entre 0-100");
+        String activacion = null;
+        try {    
+            activacion = txtActivacionEjMusculo.getText();
+            if ((activacion == null || activacion.isEmpty()) || (Integer.parseInt(activacion) < 0 || Integer.parseInt(activacion) > 100)) 
+                sbErrores.append("  - Activación vacía o no comprendida entre 0-100");
+        
+        } catch (NumberFormatException e) {
+            sbErrores.append("  - Activación debe ser un número entre 0-100\n");
+        }
 
         if (!sbErrores.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Registro incorrecto:\n" + sbErrores.toString());
@@ -550,7 +563,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                 sbErrores.append("  - Descripción vacía\n");
 
             if (txtImagen == null || txtImagen.getText().isEmpty())
-                sbErrores.append("  - No se ha validado imagen\n");
+                sbErrores.append("  - No se ha elegido imagen\n");
 
             Integer pesoMinimo = null;
             Integer pesoMaximo = null;
@@ -688,14 +701,18 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             if (idEjercicio != null) {
                 if (musculosInvolucrados.stream().anyMatch(e -> e.getIdMusculo().equals(musculoSeleccionado.getIdMusculo()))) { // comprueba si en lista algún idMusculo == idMusculo
                     EjercicioMusculo ejercicioMusculoSeleccionado = EjercicioMusculosService.get(idEjercicio, musculoSeleccionado.getIdMusculo());                    
+                    btnSiEsInvolucrado.setSelected(true);
                     modificarVistaComponentesMusculo(true);
                     
                     txtDescripcionEjMusculo.setText(musculoSeleccionado.getDescripcion());
                     txtActivacionEjMusculo.setText(String.valueOf(ejercicioMusculoSeleccionado.getPorcentajeActivacion()));
                 
-                    if (ejercicioMusculoSeleccionado.getEsDirecto()) btnSiEsDirectoEjMusculo.setSelected(true);
-                    else btnNoDirectoEjMusculo.setSelected(true);
+                    if (ejercicioMusculoSeleccionado.getEsDirecto()) 
+                        btnSiEsDirectoEjMusculo.setSelected(true);
+                    else 
+                        btnNoDirectoEjMusculo.setSelected(true);                
                 } else {
+                    btnNoEsInvolucrado.setSelected(true);
                     txtDescripcionEjMusculo.setText("");
                     txtActivacionEjMusculo.setText("");
                     btnNoDirectoEjMusculo.setSelected(true);
@@ -703,61 +720,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cbMusculosItemStateChanged
-	
-	private void tblEjerciciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEjerciciosMouseClicked
-        Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);            
-        if (evt.getClickCount() == 1 && idEjercicio == null) {
-            txtaDetallesEjercicio.setText("");
-            esEjercicioSeleccionado = false;
-            return;
-        }
-
-        if (evt.getClickCount() == 2 && idEjercicio == null) {
-            reiniciarCampos();
-            esEjercicioSeleccionado = false;
-            return;
-        }
-        
-        // Mostar detalles
-        Ejercicio ejercicio = EjercicioService.get(idEjercicio);
-        if (evt.getClickCount() == 1) {            
-                // Obtener músculos involucrados
-                List<EjercicioMusculo> musculos = EjercicioMusculosService.getAll(idEjercicio);
-            
-                // Mostrar
-                StringBuilder sb = new StringBuilder();
-                sb.append("<> Ejercicio\n  - Nombre: ").append(ejercicio.getNombre()).append("\n");
-                sb.append("  - Descripción: ").append(ejercicio.getDescripcion()).append("\n");
-                sb.append("  - Ruta de imagen en servidor: ").append(ejercicio.getRutaImagen()).append("\n");
-                sb.append("  - Peso minimo: ").append(ejercicio.getPesoMinimo()).append("\n");
-                sb.append("  - Peso máximo: ").append(ejercicio.getPesoMaximo()).append("\n");
-            
-                sb.append("\n<> Músculos\n");
-                for (int i = 0; i < musculos.size(); i++) {
-                    Musculo musculo = MusculoService.get(musculos.get(i).getIdMusculo());
-                    sb.append("  • ").append(musculo.getNombre()).append("\n");
-                    sb.append("    - Descripción: ").append(musculo.getDescripcion()).append("\n");
-                    sb.append("    - Zona: ").append(musculo.getZona()).append("\n");
-                    sb.append("    - Grupo: ").append(musculo.getGrupo()).append("\n");
-                }            
-            
-                txtaDetallesEjercicio.setText(sb.toString());
-            }
-        
-        // Mostrar en formulario
-        if (evt.getClickCount() == 2) {            
-            esEjercicioSeleccionado = true;
-            txtNombreEjercicio.setText(ejercicio.getNombre());
-            txtDescripcionEjercicio.setText(ejercicio.getDescripcion());
-            txtImagen.setText(ejercicio.getRutaImagen());
-            txtPesoMinimo.setText(ejercicio.getPesoMinimo() != null && ejercicio.getPesoMinimo() != 0 ? String.valueOf(ejercicio.getPesoMinimo()) : "");
-            txtPesoMaximo.setText(ejercicio.getPesoMaximo() != null && ejercicio.getPesoMaximo() != 0 ? String.valueOf(ejercicio.getPesoMaximo()) : "");
-                
-            // Músculos
-            musculosInvolucrados = EjercicioMusculosService.getAll(idEjercicio);                   
-        }
-    }//GEN-LAST:event_tblEjerciciosMouseClicked
-	
+		
 	private void mitemEditarMusculosActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         FormularioMusculos formularioMusculos = new FormularioMusculos(this, true);
         formularioMusculos.setVisible(true);
@@ -777,6 +740,60 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private void mitemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSobreActionPerformed
         ayudaUtil.mostrarAyuda();
     }//GEN-LAST:event_mitemSobreActionPerformed
+
+    private void tblEjerciciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEjerciciosMouseClicked
+        Integer idEjercicio = (Integer) tableModel.getValueAt(tblEjercicios.getSelectedRow(), 0);
+        if (evt.getClickCount() == 1 && idEjercicio == null) {
+            txtaDetallesEjercicio.setText("");
+            esEjercicioSeleccionado = false;
+            return;
+        }
+
+        if (evt.getClickCount() == 2 && idEjercicio == null) {
+            reiniciarCampos();
+            esEjercicioSeleccionado = false;
+            return;
+        }
+
+        // Mostar detalles
+        Ejercicio ejercicio = EjercicioService.get(idEjercicio);
+        if (evt.getClickCount() == 1) {
+            // Obtener músculos involucrados
+            List<EjercicioMusculo> musculos = EjercicioMusculosService.getAll(idEjercicio);
+
+            // Mostrar
+            StringBuilder sb = new StringBuilder();
+            sb.append("<> Ejercicio\n  - Nombre: ").append(ejercicio.getNombre()).append("\n");
+            sb.append("  - Descripción: ").append(ejercicio.getDescripcion()).append("\n");
+            sb.append("  - Ruta de imagen en servidor: ").append(ejercicio.getRutaImagen()).append("\n");
+            sb.append("  - Peso minimo: ").append(ejercicio.getPesoMinimo()).append("\n");
+            sb.append("  - Peso máximo: ").append(ejercicio.getPesoMaximo()).append("\n");
+
+            sb.append("\n<> Músculos\n");
+            for (int i = 0; i < musculos.size(); i++) {
+                Musculo musculo = MusculoService.get(musculos.get(i).getIdMusculo());
+                sb.append("  • ").append(musculo.getNombre()).append("\n");
+                sb.append("    - Descripción: ").append(musculo.getDescripcion()).append("\n");
+                sb.append("    - Zona: ").append(musculo.getZona()).append("\n");
+                sb.append("    - Grupo: ").append(musculo.getGrupo()).append("\n");
+            }
+
+            txtaDetallesEjercicio.setText(sb.toString());
+        }
+
+        // Mostrar en formulario
+        if (evt.getClickCount() == 2) {
+            esEjercicioSeleccionado = true;
+            txtNombreEjercicio.setText(ejercicio.getNombre());
+            txtDescripcionEjercicio.setText(ejercicio.getDescripcion());
+            txtImagen.setText(ejercicio.getRutaImagen());
+            txtPesoMinimo.setText(ejercicio.getPesoMinimo() != null && ejercicio.getPesoMinimo() != 0 ? String.valueOf(ejercicio.getPesoMinimo()) : "");
+            txtPesoMaximo.setText(ejercicio.getPesoMaximo() != null && ejercicio.getPesoMaximo() != 0 ? String.valueOf(ejercicio.getPesoMaximo()) : "");
+
+            // Músculos
+            musculosInvolucrados = EjercicioMusculosService.getAll(idEjercicio);
+        }
+    }//GEN-LAST:event_tblEjerciciosMouseClicked
 
     private void mitemSalirActionPerformed(java.awt.event.ActionEvent evt) {                                           
         System.exit(0);
