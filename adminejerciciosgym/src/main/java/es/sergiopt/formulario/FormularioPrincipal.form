@@ -88,17 +88,17 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlEjercicio" pref="507" max="32767" attributes="0"/>
+                  <Component id="pnlEjercicio" pref="510" max="32767" attributes="0"/>
                   <Component id="lblEjercicio" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblMusculos" alignment="0" max="32767" attributes="0"/>
-                  <Component id="pnlMusculos" alignment="0" pref="507" max="32767" attributes="0"/>
+                  <Component id="pnlMusculos" alignment="0" pref="510" max="32767" attributes="0"/>
                   <Component id="btnGuardarFormulario" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblEjerciciosCargados" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDetallesEjercicio" min="-2" max="-2" attributes="0"/>
-                  <Component id="spEjercicios" alignment="0" pref="504" max="32767" attributes="0"/>
+                  <Component id="spEjercicios" alignment="0" pref="508" max="32767" attributes="0"/>
                   <Component id="spDetallesEjercicio" max="32767" attributes="0"/>
                   <Component id="btnEliminarEjercicio" max="32767" attributes="0"/>
               </Group>
@@ -110,29 +110,34 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="lblEjerciciosCargados" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="spEjercicios" pref="0" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="btnEliminarEjercicio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblDetallesEjercicio" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="spDetallesEjercicio" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="lblEjercicio" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlEjercicio" pref="153" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="lblMusculos" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="pnlEjercicio" pref="161" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblMusculos" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="lblDetallesEjercicio" alignment="3" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlMusculos" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblEjerciciosCargados" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="spEjercicios" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnEliminarEjercicio" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="pnlMusculos" pref="159" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGuardarFormulario" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="spDetallesEjercicio" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -205,7 +210,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtNombreEjercicio" alignment="3" max="32767" attributes="0"/>
                       <Component id="lblNombreEjercicio" alignment="3" max="32767" attributes="0"/>
@@ -215,20 +220,20 @@
                       <Component id="txtDescripcionEjercicio" alignment="3" max="32767" attributes="0"/>
                       <Component id="lbDescripcionEjercicio" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" pref="14" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtImagen" alignment="3" max="32767" attributes="0"/>
                       <Component id="btnElegirImagen" alignment="3" max="32767" attributes="0"/>
                       <Component id="lblImagen" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="9" max="32767" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPesoMinimo" alignment="3" max="32767" attributes="0"/>
                       <Component id="txtPesoMinimo" alignment="3" max="32767" attributes="0"/>
                       <Component id="lblPesoMaximo" alignment="3" max="32767" attributes="0"/>
                       <Component id="txtPesoMaximo" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -311,10 +316,10 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblActivacionEjMusculo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtActivacionEjMusculo" pref="71" max="32767" attributes="0"/>
+                          <Component id="txtActivacionEjMusculo" pref="72" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblPorcentajeActivacionEjMusculo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="15" max="32767" attributes="0"/>
+                          <EmptySpace pref="17" max="32767" attributes="0"/>
                           <Component id="lblEsDirectoEjMusculo" min="-2" pref="56" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnNoDirectoEjMusculo" min="-2" pref="47" max="-2" attributes="0"/>
@@ -334,7 +339,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="cbMusculos" pref="160" max="32767" attributes="0"/>
+                                  <Component id="cbMusculos" pref="163" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                   <Component id="lblEsInvolucrado" min="-2" pref="85" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -359,7 +364,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cbMusculos" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblCbMusculos" alignment="3" max="32767" attributes="0"/>
@@ -372,7 +377,7 @@
                       <Component id="txtDescripcionEjMusculo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDescripcionEjMusculo" alignment="3" pref="30" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblActivacionEjMusculo" alignment="3" max="32767" attributes="0"/>
                       <Component id="txtActivacionEjMusculo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -381,7 +386,7 @@
                       <Component id="btnSiEsDirectoEjMusculo" alignment="3" max="32767" attributes="0"/>
                       <Component id="lblPorcentajeActivacionEjMusculo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnGuardarEjMusculo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnEliminarEjMusculo" alignment="3" min="-2" max="-2" attributes="0"/>
