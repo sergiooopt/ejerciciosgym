@@ -11,7 +11,7 @@ class EjerciciosProvider with ChangeNotifier {
     BuildContext context,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.servidor);
+    final service = EjerciciosService(provider.ipServidor);
 
     final ejercicios = await service.getAllEjercicios();
     final resultados = await Future.wait(
@@ -33,7 +33,7 @@ class EjerciciosProvider with ChangeNotifier {
     String nombre,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.servidor);
+    final service = EjerciciosService(provider.ipServidor);
 
     final ejercicios = await service.getAllEjerciciosByName(nombre);
     final resultados = await Future.wait(
@@ -52,7 +52,7 @@ class EjerciciosProvider with ChangeNotifier {
 
   Future<MusculoModel> cargarMusculoPorId(BuildContext context, int id) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.servidor);
+    final service = EjerciciosService(provider.ipServidor);
     return await service.getMusculoById(id);
   }
 
@@ -61,7 +61,7 @@ class EjerciciosProvider with ChangeNotifier {
     int idEjercicio,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.servidor);
+    final service = EjerciciosService(provider.ipServidor);
     return await service.getAllMusculosInvolucrados(idEjercicio);
   }
 }

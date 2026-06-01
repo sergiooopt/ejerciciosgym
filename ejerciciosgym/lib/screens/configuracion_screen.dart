@@ -15,7 +15,7 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
+    final provider = Provider.of<ConfiguracionProvider>(context);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Configuración')),
@@ -30,7 +30,7 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Dirección IP del servidor',
-                  helperText: 'Por defecto 10.0.2.2',
+                  helperText: 'IP actual ${provider.ipServidor}',
                   suffixIcon: Icon(Icons.computer_sharp),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -52,7 +52,7 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    provider.setServidor(_servidor);
+                    provider.setIpServidor(_servidor);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Servidor guardado correctamente'),

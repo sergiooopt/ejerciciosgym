@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConfiguracionProvider with ChangeNotifier {
-  String _servidor = '10.0.2.2';
+  static const _claveIpServidor = 'servidor.ip';
+  String _ipServidor;
 
-  String get servidor => _servidor;
+  ConfiguracionProvider({String? ipServidor})
+    : _ipServidor = ipServidor ?? '10.0.2.2';
 
-  void setServidor(String servidor) {
-    _servidor = servidor;
+  String get ipServidor => _ipServidor;
+
+  Future<void> setIpServidor(String ipServidor) async {
+    _ipServidor = ipServidor;
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString(_claveIpServidor, _ipServidor);
     notifyListeners();
   }
 }

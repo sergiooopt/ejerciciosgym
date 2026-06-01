@@ -15,7 +15,7 @@ class MusculoModel {
 
   factory MusculoModel.fromMap({required Map<String, dynamic> map}) =>
       MusculoModel(
-        id: map['id'],
+        id: map['id_musculo'],
         nombre: map['nombre'],
         descripcion: map['descripcion'],
         zona: map['zona'],
@@ -23,10 +23,10 @@ class MusculoModel {
       );
 
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "nombre": nombre,
-    "descripcion": descripcion,
-    "zona": zona,
-    "grupo": grupo,
+    'id_musculo': id,
+    'nombre': nombre,
+    'descripcion': descripcion,
+    'zona': zona,
+    'grupo': grupo,
   };
 }

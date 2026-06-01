@@ -17,7 +17,7 @@ class EjercicioModel {
 
   factory EjercicioModel.fromMap({required Map<String, dynamic> map}) =>
       EjercicioModel(
-        id: map['id'],
+        id: map['id_ejercicio'],
         nombre: map['nombre'],
         descripcion: map['descripcion'],
         rutaImagen: map['ruta_imagen'],
@@ -26,7 +26,7 @@ class EjercicioModel {
       );
 
   Map<String, dynamic> toMap() => {
-    'id': id,
+    'id_ejercicio': id,
     'nombre': nombre,
     'descripcion': descripcion,
     'ruta_imagen': rutaImagen,
