@@ -42,6 +42,6 @@ class ElementoEjercicioWidget extends StatelessWidget {
           ),
         ),
       ),
-    );    
+    );
   }
 }

@@ -17,7 +17,7 @@ class Providers extends StatelessWidget {
           create: (context) => EjerciciosProvider(),
         ),
         ChangeNotifierProvider<ConfiguracionProvider>(
-          create: (context) => ConfiguracionProvider(ipServidor: ipServidor),
+          create: (context) => ConfiguracionProvider(servidor: ipServidor),
         ),
       ],
       child: App(),

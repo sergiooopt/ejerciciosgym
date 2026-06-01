@@ -49,7 +49,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
           flex: 3,
           child: Card(
             elevation: 8,
-            shadowColor: Colors.black38,
+            shadowColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -71,7 +71,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade700,
+                    color: Colors.blue,
                   ),
                 ),
                 SizedBox(height: 6),
@@ -81,11 +81,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Text(
                       ejercicioImagen.ejercicio.descripcion,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey.shade700,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(fontSize: 15, height: 1.5),
                     ),
                   ),
                 ),

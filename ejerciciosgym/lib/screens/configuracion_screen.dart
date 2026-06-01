@@ -30,7 +30,7 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Dirección IP del servidor',
-                  helperText: 'IP actual ${provider.ipServidor}',
+                  helperText: 'IP actual ${provider.servidor}',
                   suffixIcon: Icon(Icons.computer_sharp),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -41,7 +41,10 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                   final regexp = RegExp(
                     '^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}\$',
                   );
-                  if (!regexp.hasMatch(value as String)) return 'El servidor debe ser una IP';
+                  if (!regexp.hasMatch(value as String)) {
+                    return 'El servidor debe ser una IP';
+                  }
+
                   return null;
                 },
               ),

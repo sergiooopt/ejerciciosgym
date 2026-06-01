@@ -20,17 +20,11 @@ class ElementoMusculoWidget extends StatelessWidget {
       ),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Card(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-            child: Text('Error al cargar músculo'),
-          );
+          return Center(child: Text('Error al cargar músculo'));
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Card(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-            child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
-          );
+          return Center(child: CircularProgressIndicator(strokeWidth: 2));
         }
 
         final musculo = snapshot.data!;
@@ -50,12 +44,6 @@ class ElementoMusculoWidget extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            Icon(
-              Icons.check_circle,
-              color: esDirecto ? Colors.green : Colors.orange.shade400,
-              size: 28,
-            ),
-            SizedBox(width: 10),
             Expanded(
               child: Column(
                 children: [
@@ -78,7 +66,7 @@ class ElementoMusculoWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: 6),
                       Text(
                         '$porcentaje%',
                         style: TextStyle(
@@ -92,7 +80,7 @@ class ElementoMusculoWidget extends StatelessWidget {
                   SizedBox(height: 4),
                   Text(
                     musculoInvolucrado.descripcion,
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                    style: TextStyle(fontSize: 12),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -19,10 +19,15 @@ class ErrorEjerciciosWidget extends StatelessWidget {
           ),
           SizedBox(height: 10),
           error != null
-              ? Text(error.toString(), style: TextStyle(fontSize: 12))
+              ? Text(
+                  error.toString(),
+                  style: TextStyle(fontSize: 12),
+                  textAlign: TextAlign.center,
+                )
               : Text(
                   'Código de error desconocido',
                   style: TextStyle(fontSize: 12),
+                  textAlign: TextAlign.center,
                 ),
         ],
       ),

@@ -7,11 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EjerciciosProvider with ChangeNotifier {
+  
+  // Se recorre lista devuelta por API
+  // Si hay algun error se convierte en null, solo se devuelven los objetos deseados gracias a *whereType*
+
   Future<List<EjercicioImagenModel>> cargarEjercicios(
     BuildContext context,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.ipServidor);
+    final service = EjerciciosService(provider.servidor);
 
     final ejercicios = await service.getAllEjercicios();
     final resultados = await Future.wait(
@@ -33,7 +37,7 @@ class EjerciciosProvider with ChangeNotifier {
     String nombre,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.ipServidor);
+    final service = EjerciciosService(provider.servidor);
 
     final ejercicios = await service.getAllEjerciciosByName(nombre);
     final resultados = await Future.wait(
@@ -52,7 +56,7 @@ class EjerciciosProvider with ChangeNotifier {
 
   Future<MusculoModel> cargarMusculoPorId(BuildContext context, int id) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.ipServidor);
+    final service = EjerciciosService(provider.servidor);
     return await service.getMusculoById(id);
   }
 
@@ -61,7 +65,7 @@ class EjerciciosProvider with ChangeNotifier {
     int idEjercicio,
   ) async {
     final provider = Provider.of<ConfiguracionProvider>(context, listen: false);
-    final service = EjerciciosService(provider.ipServidor);
+    final service = EjerciciosService(provider.servidor);
     return await service.getAllMusculosInvolucrados(idEjercicio);
   }
 }

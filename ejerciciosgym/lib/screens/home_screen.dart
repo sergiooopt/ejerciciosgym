@@ -14,7 +14,6 @@ class HomeScreen extends StatelessWidget {
       body: Center(child: Image.asset('assets/logo.png')),
       drawer: Drawer(
         child: ListView(
-          padding: const EdgeInsets.all(0),
           children: [
             SizedBox(height: 20),
             ListTile(
@@ -33,8 +32,7 @@ class HomeScreen extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.construction),
               title: Text('Configuración'),
-              onTap: () =>
-                  Navigator.of(context).pushNamed(App.configuracion),
+              onTap: () => Navigator.of(context).pushNamed(App.configuracion),
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),

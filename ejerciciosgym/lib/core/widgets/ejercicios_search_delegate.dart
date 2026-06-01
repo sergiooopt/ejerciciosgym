@@ -36,11 +36,14 @@ class EjerciciosSearchDelegate extends SearchDelegate {
     return FutureBuilder(
       future: provider.cargarEjerciciosPorNombre(context, query),
       builder: (context, snapshot) {
-        if (snapshot.hasError) return ErrorEjerciciosWidget(error: snapshot.error);
+        if (snapshot.hasError) {
+          return ErrorEjerciciosWidget(error: snapshot.error);
+        }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
+        
         final ejercicios = snapshot.data!;
         return ListView.builder(
           itemCount: ejercicios.length,

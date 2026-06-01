@@ -16,8 +16,10 @@ class ListaEjerciciosScreen extends StatelessWidget {
       body: FutureBuilder(
         future: provider.cargarEjercicios(context),
         builder: (context, snapshot) {
-          if (snapshot.hasError) return ErrorEjerciciosWidget(error: snapshot.error);
-          
+          if (snapshot.hasError) {
+            return ErrorEjerciciosWidget(error: snapshot.error);
+          }
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
