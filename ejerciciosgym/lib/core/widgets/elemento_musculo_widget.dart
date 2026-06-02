@@ -24,7 +24,17 @@ class ElementoMusculoWidget extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(strokeWidth: 2));
+          // Se devuelve card respetando margenes y forma para visualizar bien el circulo de carga
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          );
         }
 
         final musculo = snapshot.data!;
@@ -41,7 +51,7 @@ class ElementoMusculoWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Expanded(
@@ -58,7 +68,7 @@ class ElementoMusculoWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4),
                           child: LinearProgressIndicator(
                             value: porcentaje / 100,
-                            backgroundColor: Colors.grey.shade200,
+                            backgroundColor: Colors.grey,
                             valueColor: AlwaysStoppedAnimation(
                               esDirecto ? Colors.green : Colors.orange,
                             ),
@@ -70,9 +80,9 @@ class ElementoMusculoWidget extends StatelessWidget {
                       Text(
                         '$porcentaje%',
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.bold,
                           fontSize: 13,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey,
                         ),
                       ),
                     ],

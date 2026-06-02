@@ -9,32 +9,38 @@ class ElementoEjercicioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return InkWell(
       onTap: () => Navigator.of(
         context,
       ).pushNamed(App.informacionEjercicio, arguments: ejercicioImagen),
-      child: Padding(
-        padding: const EdgeInsetsGeometry.only(top: 8),
-        child: Card(
-          margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),          
+        child: Padding(
+          padding: const EdgeInsets.all(10),
           child: ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(10),
             child: Row(
               children: [
-                FadeInImage(
-                  placeholder: AssetImage('assets/loading.gif'),
-                  image: MemoryImage(ejercicioImagen.imagen),
-                  fit: BoxFit.fill,
-                  width: size.width * 0.3,
-                  height: size.height * 0.1,
+                Expanded(
+                  flex: 1,
+                  child: AspectRatio( // este widget limita el tamaño dinamicamente
+                    aspectRatio: 1.4,
+                    child: FadeInImage(
+                      placeholder: AssetImage('assets/loading.gif'),
+                      image: MemoryImage(ejercicioImagen.imagen),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 SizedBox(width: 20),
                 Expanded(
-                  child: Text(
-                    ejercicioImagen.ejercicio.nombre,
-                    overflow: TextOverflow.ellipsis,
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Text(
+                      ejercicioImagen.ejercicio.nombre,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ],

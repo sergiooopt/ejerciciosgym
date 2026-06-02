@@ -42,6 +42,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
     return Column(
       children: [
         Expanded(
+          flex: 3,
           child: Card(
             elevation: 8,
             shadowColor: Colors.black,
@@ -54,6 +55,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Column(

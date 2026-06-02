@@ -14,8 +14,7 @@ class HomeScreen extends StatelessWidget {
       body: Center(child: Image.asset('assets/logo.png')),
       drawer: Drawer(
         child: ListView(
-          children: [
-            SizedBox(height: 20),
+          children: [            
             ListTile(
               leading: Icon(Icons.format_list_bulleted),
               title: Text('Ejercicios'),
