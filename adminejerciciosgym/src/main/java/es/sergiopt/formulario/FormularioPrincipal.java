@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import es.sergiopt.utils.AyudaUtil;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.formdev.flatlaf.FlatLightLaf;
 
 /**
  *
@@ -158,12 +159,13 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administración Ejercicios Gym");
-        setMinimumSize(new java.awt.Dimension(900, 600));
+        setMinimumSize(new java.awt.Dimension(854, 520));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         lblEjercicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEjercicio.setText("Ejercicio");
 
-        pnlEjercicio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlEjercicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         pnlEjercicio.setPreferredSize(new java.awt.Dimension(350, 150));
 
         lblNombreEjercicio.setText("Nombre");
@@ -177,9 +179,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         btnElegirImagen.setText("Elegir imagen");
         btnElegirImagen.addActionListener(this::btnElegirImagenActionPerformed);
 
-        lblPesoMinimo.setText("Peso minimo");
+        lblPesoMinimo.setText("Peso minimo (kg)");
 
-        lblPesoMaximo.setText("Peso máximo");
+        lblPesoMaximo.setText("Peso máximo (kg)");
 
         javax.swing.GroupLayout pnlEjercicioLayout = new javax.swing.GroupLayout(pnlEjercicio);
         pnlEjercicio.setLayout(pnlEjercicioLayout);
@@ -236,13 +238,13 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addComponent(txtPesoMinimo)
                     .addComponent(lblPesoMaximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPesoMaximo))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         lblMusculos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblMusculos.setText("Músculos involucrados");
 
-        pnlMusculos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlMusculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         pnlMusculos.setPreferredSize(new java.awt.Dimension(350, 150));
 
         lblCbMusculos.setText("Músculo");
@@ -302,10 +304,10 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addGroup(pnlMusculosLayout.createSequentialGroup()
                         .addComponent(lblActivacionEjMusculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPorcentajeActivacionEjMusculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(lblEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -322,7 +324,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                                 .addComponent(txtDescripcionEjMusculo))
                             .addGroup(pnlMusculosLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addComponent(cbMusculos, 0, 163, Short.MAX_VALUE)
+                                .addComponent(cbMusculos, 0, 165, Short.MAX_VALUE)
                                 .addGap(51, 51, 51)
                                 .addComponent(lblEsInvolucrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -340,7 +342,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         pnlMusculosLayout.setVerticalGroup(
             pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMusculosLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMusculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCbMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -351,7 +353,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcionEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDescripcionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,7 +361,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSiEsDirectoEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblPorcentajeActivacionEjMusculo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarEjMusculo)
                     .addComponent(btnEliminarEjMusculo))
@@ -532,7 +534,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                 sbErrores.append("  - Activación vacía o no comprendida entre 0-100");
         
         } catch (NumberFormatException e) {
-            sbErrores.append("  - Activación debe ser un número entre 0-100\n");
+            sbErrores.append("  - Activación debe ser un número entero entre 0-100\n");
         }
 
         if (!sbErrores.isEmpty()) {
@@ -567,15 +569,30 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             if (txtImagen == null || txtImagen.getText().isEmpty())
                 sbErrores.append("  - No se ha elegido imagen\n");
 
-            Integer pesoMinimo = null;
-            Integer pesoMaximo = null;
-            try {
-                pesoMinimo = txtPesoMinimo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMinimo.getText()) : null;
-                pesoMaximo = txtPesoMaximo.getText().matches("^[0-9]+$") ? Integer.valueOf(txtPesoMaximo.getText()) : null;
+            String pesoMinimo = txtPesoMinimo.getText().trim();
+            String pesoMaximo = txtPesoMaximo.getText().trim();
 
-            } catch (NumberFormatException e) {
-                sbErrores.append("Peso minimo y peso máximo deben contenedor unicamente números\n");
+            Integer enteroPesoMinimo = null;
+            Integer enteroPesoMaximo = null;
+
+            if (!pesoMinimo.isEmpty()) {
+                try {
+                    enteroPesoMinimo = Integer.valueOf(pesoMinimo);
+                } catch (NumberFormatException e) {
+                    sbErrores.append("  - El peso mínimo debe ser un número entero\n");
+                }
             }
+
+            if (!pesoMaximo.isEmpty()) {
+                try {
+                    enteroPesoMaximo = Integer.valueOf(pesoMaximo);
+                } catch (NumberFormatException e) {
+                    sbErrores.append("  - El peso máximo debe ser un número entero\n");
+                }
+            }
+
+            if (enteroPesoMinimo != null && enteroPesoMaximo != null && enteroPesoMinimo > enteroPesoMaximo)
+                sbErrores.append("  - El peso mínimo no puede ser mayor que el peso máximo\n");           
         
             if (musculosInvolucrados.isEmpty())
                 sbErrores.append("  - No hay músculos involucrados\n");
@@ -822,7 +839,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             // logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        FlatLightLaf.setup();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FormularioPrincipal().setVisible(true));
     }
