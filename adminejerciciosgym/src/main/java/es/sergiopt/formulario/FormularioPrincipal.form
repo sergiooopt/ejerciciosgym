@@ -91,18 +91,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlEjercicio" pref="510" max="32767" attributes="0"/>
+                  <Component id="pnlEjercicio" pref="531" max="32767" attributes="0"/>
                   <Component id="lblEjercicio" alignment="0" max="32767" attributes="0"/>
                   <Component id="lblMusculos" alignment="0" max="32767" attributes="0"/>
-                  <Component id="pnlMusculos" alignment="0" pref="510" max="32767" attributes="0"/>
+                  <Component id="pnlMusculos" alignment="0" pref="531" max="32767" attributes="0"/>
                   <Component id="btnGuardarFormulario" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblEjerciciosCargados" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDetallesEjercicio" min="-2" max="-2" attributes="0"/>
-                  <Component id="spEjercicios" alignment="0" pref="508" max="32767" attributes="0"/>
-                  <Component id="spDetallesEjercicio" max="32767" attributes="0"/>
+                  <Component id="spEjercicios" alignment="0" pref="487" max="32767" attributes="0"/>
+                  <Component id="spDetallesEjercicio" pref="487" max="32767" attributes="0"/>
                   <Component id="btnEliminarEjercicio" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -323,16 +323,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblActivacionEjMusculo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtActivacionEjMusculo" pref="73" max="32767" attributes="0"/>
+                          <Component id="txtActivacionEjMusculo" pref="128" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblPorcentajeActivacionEjMusculo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="18" max="32767" attributes="0"/>
-                          <Component id="lblEsDirectoEjMusculo" min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblEsDirectoEjMusculo" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnNoDirectoEjMusculo" min="-2" pref="47" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSiEsDirectoEjMusculo" min="-2" pref="41" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                          <Component id="btnNoDirectoEjMusculo" min="-2" pref="44" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnSiEsDirectoEjMusculo" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -344,14 +343,14 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="txtDescripcionEjMusculo" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="cbMusculos" pref="165" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                  <Component id="lblEsInvolucrado" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="cbMusculos" pref="194" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="lblEsInvolucrado" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnNoEsInvolucrado" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnSiEsInvolucrado" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -415,7 +414,7 @@
               <StringArray count="0"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[32767, 200]"/>
+              <Dimension value="[180, 180]"/>
             </Property>
           </Properties>
           <Events>
@@ -429,6 +428,15 @@
         <Component class="javax.swing.JLabel" name="lblEsInvolucrado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Es involucrado"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 16]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[85, 16]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 16]"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="btnNoEsInvolucrado">
@@ -472,8 +480,11 @@
         <Component class="javax.swing.JTextField" name="txtActivacionEjMusculo">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[80, 80]"/>
+            </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[64, 40]"/>
+              <Dimension value="[60, 40]"/>
             </Property>
           </Properties>
         </Component>
@@ -485,6 +496,12 @@
         <Component class="javax.swing.JLabel" name="lblEsDirectoEjMusculo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Es directo"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 16]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 16]"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="btnNoDirectoEjMusculo">

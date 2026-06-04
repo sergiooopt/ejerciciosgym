@@ -249,11 +249,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         lblCbMusculos.setText("Músculo");
 
-        cbMusculos.setMaximumSize(new java.awt.Dimension(32767, 200));
+        cbMusculos.setMaximumSize(new java.awt.Dimension(180, 180));
         cbMusculos.addItemListener(this::cbMusculosItemStateChanged);
         cbMusculos.addActionListener(this::cbMusculosActionPerformed);
 
         lblEsInvolucrado.setText("Es involucrado");
+        lblEsInvolucrado.setMaximumSize(new java.awt.Dimension(200, 16));
+        lblEsInvolucrado.setMinimumSize(new java.awt.Dimension(85, 16));
+        lblEsInvolucrado.setPreferredSize(new java.awt.Dimension(100, 16));
 
         btngEsInvolucrado.add(btnNoEsInvolucrado);
         btnNoEsInvolucrado.setSelected(true);
@@ -271,11 +274,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         lblActivacionEjMusculo.setText("Porcentaje activación");
 
         txtActivacionEjMusculo.setEnabled(false);
-        txtActivacionEjMusculo.setMinimumSize(new java.awt.Dimension(64, 40));
+        txtActivacionEjMusculo.setMaximumSize(new java.awt.Dimension(80, 80));
+        txtActivacionEjMusculo.setMinimumSize(new java.awt.Dimension(60, 40));
 
         lblPorcentajeActivacionEjMusculo.setText("(0-100)");
 
         lblEsDirectoEjMusculo.setText("Es directo");
+        lblEsDirectoEjMusculo.setMaximumSize(new java.awt.Dimension(200, 16));
+        lblEsDirectoEjMusculo.setPreferredSize(new java.awt.Dimension(100, 16));
 
         btngEsDirecto.add(btnNoDirectoEjMusculo);
         btnNoDirectoEjMusculo.setSelected(true);
@@ -304,16 +310,15 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                     .addGroup(pnlMusculosLayout.createSequentialGroup()
                         .addComponent(lblActivacionEjMusculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addComponent(txtActivacionEjMusculo, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblPorcentajeActivacionEjMusculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(lblEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNoDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSiEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
+                        .addComponent(btnSiEsDirectoEjMusculo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlMusculosLayout.createSequentialGroup()
                         .addGroup(pnlMusculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblCbMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -324,9 +329,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
                                 .addComponent(txtDescripcionEjMusculo))
                             .addGroup(pnlMusculosLayout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addComponent(cbMusculos, 0, 165, Short.MAX_VALUE)
-                                .addGap(51, 51, 51)
-                                .addComponent(lblEsInvolucrado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbMusculos, 0, 194, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)
+                                .addComponent(lblEsInvolucrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnNoEsInvolucrado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -450,17 +455,17 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                    .addComponent(pnlEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                     .addComponent(lblEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                    .addComponent(pnlMusculos, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                     .addComponent(btnGuardarFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEjerciciosCargados)
                     .addComponent(lblDetallesEjercicio)
-                    .addComponent(spEjercicios, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
-                    .addComponent(spDetallesEjercicio)
+                    .addComponent(spEjercicios, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+                    .addComponent(spDetallesEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addComponent(btnEliminarEjercicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
