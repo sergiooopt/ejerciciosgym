@@ -12,28 +12,56 @@ class InformacionEjercicioScreen extends StatelessWidget {
     EjercicioImagenModel ejercicioImagen =
         ModalRoute.of(context)!.settings.arguments as EjercicioImagenModel;
 
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(title: Text('Información de ejercicio')),
-      body: Column(
-        children: [
-          Expanded(child: _informacionEjercicio(ejercicioImagen)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Divider(thickness: 1),
-          ),
-          Text(
-            'Músculos involucrados',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 5),
-          Expanded(
-            flex: 1,
+      body: CustomScrollView(
+        slivers: [
+          _cabecera(size, ejercicioImagen),
+          SliverToBoxAdapter(child: _informacionEjercicio(ejercicioImagen)),
+          SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: _listaMusculos(context, ejercicioImagen.ejercicio.id),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Divider(thickness: 1),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
+                textAlign: TextAlign.center,
+                'Músculos involucrados',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: _listaMusculos(context, ejercicioImagen.ejercicio.id),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _cabecera(Size size, EjercicioImagenModel ejercicioImagen) {
+    return SliverAppBar(
+      expandedHeight: size.height * 0.2,
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: EdgeInsets.zero,
+        title: Align(
+          alignment: Alignment
+              .bottomCenter, // establece el fondo adecuado con el titulo
+          child: Container(
+            width: double.infinity,
+            color: Colors.black54,
+            child: Text(
+              ejercicioImagen.ejercicio.nombre,
+              style: TextStyle(color: Colors.white, fontSize: 18),
+              maxLines: 2,
+            ),
+          ),
+        ),
+        background: Image.memory(ejercicioImagen.imagen, fit: BoxFit.cover),
       ),
     );
   }
@@ -41,46 +69,24 @@ class InformacionEjercicioScreen extends StatelessWidget {
   Widget _informacionEjercicio(EjercicioImagenModel ejercicioImagen) {
     return Column(
       children: [
-        Expanded(
-          child: Card(
-            elevation: 8,
-            shadowColor: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            clipBehavior: Clip.hardEdge,
-            margin: const EdgeInsets.only(top: 10),
-            child: Image.memory(ejercicioImagen.imagen, fit: BoxFit.fill),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                Text(
-                  ejercicioImagen.ejercicio.nombre,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20),
+              Align(
+                alignment: AlignmentGeometry.centerStart,
+                child: Text(
+                  ejercicioImagen.ejercicio.pesoMinimo != null &&
+                          ejercicioImagen.ejercicio.pesoMaximo != null
+                      ? '${ejercicioImagen.ejercicio.descripcion}\nPeso mínimo: ${ejercicioImagen.ejercicio.pesoMinimo} kg\nPeso máximo: ${ejercicioImagen.ejercicio.pesoMaximo} kg'
+                      : ejercicioImagen.ejercicio.descripcion,
+                  style: TextStyle(fontSize: 15),
                 ),
-                SizedBox(height: 6),
-                Divider(height: 1),
-                SizedBox(height: 8),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Text(
-                      ejercicioImagen.ejercicio.descripcion,
-                      style: TextStyle(fontSize: 15, height: 1.5),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(height: 10),
+            ],
           ),
         ),
       ],
@@ -104,11 +110,10 @@ class InformacionEjercicioScreen extends StatelessWidget {
         }
 
         final musculosInvolucrados = snapshot.data!;
-        return ListView.builder(
-          itemCount: musculosInvolucrados.length,
-          itemBuilder: (context, index) => ElementoMusculoWidget(
-            musculoInvolucrado: musculosInvolucrados[index],
-          ),
+        return Column(
+          children: musculosInvolucrados
+              .map((m) => ElementoMusculoWidget(musculoInvolucrado: m))
+              .toList(),
         );
       },
     );

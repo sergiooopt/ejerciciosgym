@@ -14,7 +14,7 @@ class ElementoEjercicioWidget extends StatelessWidget {
         context,
       ).pushNamed(App.informacionEjercicio, arguments: ejercicioImagen),
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),          
+        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: ClipRRect(
@@ -23,12 +23,16 @@ class ElementoEjercicioWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 1,
-                  child: AspectRatio( // este widget limita el tamaño dinamicamente
+                  child: AspectRatio(
+                    // este widget limita el tamaño dinamicamente
                     aspectRatio: 1.4,
-                    child: FadeInImage(
-                      placeholder: AssetImage('assets/loading.gif'),
-                      image: MemoryImage(ejercicioImagen.imagen),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusGeometry.circular(5),
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/loading.gif'),
+                        image: MemoryImage(ejercicioImagen.imagen),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
