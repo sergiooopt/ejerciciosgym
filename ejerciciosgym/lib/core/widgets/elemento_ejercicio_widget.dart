@@ -9,7 +9,7 @@ class ElementoEjercicioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => Navigator.of(
         context,
       ).pushNamed(App.informacionEjercicio, arguments: ejercicioImagen),
@@ -24,7 +24,7 @@ class ElementoEjercicioWidget extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: AspectRatio(
-                    // este widget limita el tamaño dinamicamente
+                    // Este widget limita el tamaño dinamicamente
                     aspectRatio: 1.4,
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(5),

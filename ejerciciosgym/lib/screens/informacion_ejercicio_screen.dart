@@ -29,9 +29,9 @@ class InformacionEjercicioScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Text(
-                textAlign: TextAlign.center,
                 'Músculos involucrados',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -45,7 +45,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
 
   Widget _cabecera(Size size, EjercicioImagenModel ejercicioImagen) {
     return SliverAppBar(
-      expandedHeight: size.height * 0.2,
+      expandedHeight: size.height * 0.25,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.zero,
         title: Align(
@@ -57,7 +57,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
             child: Text(
               ejercicioImagen.ejercicio.nombre,
               style: TextStyle(color: Colors.white, fontSize: 18),
-              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
           ),
         ),

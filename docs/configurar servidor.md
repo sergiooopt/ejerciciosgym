@@ -8,6 +8,8 @@ Debemos clonar el repositorio para acceder a la configuración y la compilación
 git clone https://github.com/sergiooopt/ejerciciosgym.git
 ```
 
+> Si nuestra máquina no tiene configurado **sudo** podemos elevar los privilegios con **su** pero debemos especificar nuestro usuario manualmente cuando establezcamos los permisos de los directorios.
+
 ### 1. Crear directorios de la aplicación
 
 Creamos los directorios:
@@ -77,11 +79,13 @@ $ mariadb -u ejerciciosgym -p < /scripts/crear\ base\ de\ datos.sql
 
 También dentro de MariaDB modificamos **/etc/mysql/mariadb.conf.d/50-server.cnf**.
 
-```
+```text
 27: bind-address = 0.0.0.0
 ```
 
-Copiamos **builds/wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
+Si queremos cargar datos de prueba también debemos de añadir el script **cargar ejercicios.sql** (de la misma manera que el de crear base de datos) y mover el contenido de **imagenes** a **/opt/ejerciciosgym/imagenes**.
+
+Copiamos **wsejerciciosgym.war** en **/opt/ejerciciosgym/tomee**.
 
 Recargamos ambos servicios:
 
@@ -92,7 +96,7 @@ $ sudo docker restart tomee-gym
 
 ### 4. Configurar reenvio de puertos
 
-<p style="color:red;">¡Realizar si el servidor está alojado en una máquina virtual!</p>
+¡Realizar si el servidor está alojado en una máquina virtual!
 
 Configuramos la salida de los puertos para MariaDB y TomEE:
 
