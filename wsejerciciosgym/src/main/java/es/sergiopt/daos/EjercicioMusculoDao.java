@@ -142,43 +142,13 @@ public class EjercicioMusculoDao {
         boolean eliminados = false;
         String sql = "DELETE FROM ejercicio_musculos WHERE id_ejercicio = ?";
 
-        Connection conn = null;
-        PreparedStatement statement = null;
-        try {
-            conn = Conexion.abrir().getConn();
-            statement = conn.prepareStatement(sql);
-
-            conn.setAutoCommit(false);
-
+        try (Connection conn = Conexion.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, idEjercicio);
             eliminados = statement.executeUpdate() != 0;
 
-            conn.commit();
-
-        } catch (SQLException e1) {
-            try {
-                if (conn != null)
-                    conn.rollback();
-            } catch (SQLException e2) {
-                System.err.println("Error al hacer rollback en bd: " + e2.getMessage());
-                e1.printStackTrace();
-            }
-
-            System.err.println("Error al insertar en bd: " + e1.getMessage());
-            e1.printStackTrace();
-
-        } finally {
-            try {
-                if (conn != null)                 
-                    conn.close();
-
-                if (statement != null)
-                    statement.close();
-
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar conexión en bd: " + e.getMessage());
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar en bd: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return eliminados;
@@ -188,45 +158,15 @@ public class EjercicioMusculoDao {
         boolean eliminado = false;
         String sql = "DELETE FROM ejercicio_musculos WHERE id_ejercicio = ? AND id_musculo = ?";
 
-        Connection conn = null;
-        PreparedStatement statement = null;
-        try {
-            conn = Conexion.abrir().getConn();
-            statement = conn.prepareStatement(sql);
-
-            conn.setAutoCommit(false);
-
+        try (Connection conn = Conexion.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, idEjercicio);
             statement.setInt(2, idMusculo);
 
             eliminado = statement.executeUpdate() != 0;
 
-            conn.commit();
-
-        }catch (SQLException e1) {
-            try {
-                if (conn != null)
-                    conn.rollback();
-            } catch (SQLException e2) {
-                System.err.println("Error al hacer rollback en bd: " + e2.getMessage());
-                e1.printStackTrace();
-            }
-
-            System.err.println("Error al insertar en bd: " + e1.getMessage());
-            e1.printStackTrace();
-
-        } finally {
-            try {
-                if (conn != null)                 
-                    conn.close();
-
-                if (statement != null)
-                    statement.close();
-
-            } catch (SQLException e) {
-                System.err.println("Error al cerrar conexión en bd: " + e.getMessage());
-                e.printStackTrace();
-            }
+        }catch (SQLException e) {
+            System.err.println("Error al eliminar en bd: " + e.getMessage());
+            e.printStackTrace();
         }
 
         return eliminado;

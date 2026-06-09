@@ -24,9 +24,9 @@ class ElementoMusculoWidget extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Se devuelve card respetando margenes y forma para visualizar bien el circulo de carga
+          // Se devuelve card respetando margin y padding para visualizar bien el circulo de carga
           return Card(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(10),
             ),
@@ -44,11 +44,8 @@ class ElementoMusculoWidget extends StatelessWidget {
   }
 
   Widget _elementoFinal(MusculoModel musculo) {
-    final porcentaje = musculoInvolucrado.porcentajeActivacion;
-    final esDirecto = musculoInvolucrado.esDirecto;
-
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -65,12 +62,15 @@ class ElementoMusculoWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(5),
                           child: LinearProgressIndicator(
-                            value: porcentaje / 100,
+                            value:
+                                musculoInvolucrado.porcentajeActivacion / 100,
                             backgroundColor: Colors.grey,
                             valueColor: AlwaysStoppedAnimation(
-                              esDirecto ? Colors.green : Colors.orange,
+                              musculoInvolucrado.esDirecto
+                                  ? Colors.green
+                                  : Colors.orange,
                             ),
                             minHeight: 6,
                           ),
@@ -78,21 +78,25 @@ class ElementoMusculoWidget extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        '$porcentaje%',
+                        '${musculoInvolucrado.porcentajeActivacion}%',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: Colors.grey,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 4),
                   Text(
-                    musculoInvolucrado.descripcion,
+                    '${musculoInvolucrado.descripcion} (${musculo.zona}, ${musculo.grupo})',
                     style: TextStyle(fontSize: 12),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Descripción: ${musculo.descripcion}',
+                    style: TextStyle(fontSize: 12),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),

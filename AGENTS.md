@@ -37,6 +37,7 @@ Proyecto DAM: 3 componentes. Instrucciones para agentes de IA.
 
 - `Conexion.java` — singleton con DataSource JNDI `jdbc/ejerciciosgym-ds`.
 - `EjercicioDao.java`, `MusculoDao.java`, `EjercicioMusculoDao.java` — CRUD completo.
+- Los delete de `EjercicioDao` y `MusculoDao` borran manualmente las filas en `ejercicio_musculos` (con transacción) antes del registro padre, en lugar de depender de ON DELETE CASCADE.
 - Capturan excepciones SQL silenciosamente y devuelven listas vacías.
 
 ### BD
@@ -110,6 +111,7 @@ java -Dhost=192.168.1.100 -jar target/adminejerciciosgym-jar-with-dependencies.j
 - `FormularioMusculos` refresca el `JComboBox` de músculos al cerrarse.
 - `comprobarError()` acepta códigos 200 y 204.
 - Tabla ejercicios: 3 columnas (id, nombre, ruta_imagen).
+- `JFileChooser` para imágenes filtrado solo a `.jpg`/`.jpeg` (sin "Todos los archivos").
 
 ---
 
@@ -140,8 +142,8 @@ java -Dhost=192.168.1.100 -jar target/adminejerciciosgym-jar-with-dependencies.j
 ### Widgets
 
 - `ElementoEjercicioWidget` — tarjeta con `FadeInImage`
-- `ElementoMusculoWidget` — músculo con indicador de activación
-- `ErrorEjerciciosWidget` — estado de error con icono
+- `ElementoMusculoWidget` — músculo con indicador de activación, zona/grupo y descripción
+- `ErrorEjerciciosWidget` — estado de error con icono; para `ClientException` muestra mensaje personalizado de conexión
 - `EjerciciosSearchDelegate` — búsqueda por nombre
 
 ### Compilación

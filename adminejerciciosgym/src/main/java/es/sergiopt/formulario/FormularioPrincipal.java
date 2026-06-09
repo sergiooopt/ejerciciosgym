@@ -506,6 +506,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(new FileNameExtensionFilter("Imágenes", "jpg", "jpeg"));
 
+        // Eliminar filtro de todos los archivos (solo se permite .jpg y .jpeg)
+        chooser.setAcceptAllFileFilterUsed(false);
+
         int resultado = chooser.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File imagen = chooser.getSelectedFile();

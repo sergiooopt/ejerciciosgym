@@ -3,7 +3,6 @@
 
 # Java
 nb-configuration.xml
-*.jar
 target/
 
 # Flutter

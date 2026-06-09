@@ -23,9 +23,9 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
         key: _formKey,
         child: ListView(
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -49,9 +49,8 @@ class _ConfiguracionScreenState extends State<ConfiguracionScreen> {
                 },
               ),
             ),
-            SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

@@ -114,16 +114,24 @@ public class MusculoDao {
 
     public boolean delete(int idMusculo) {
         boolean eliminado = false;
-        String sql = "DELETE FROM musculos WHERE id_musculo = ?";
+        String sqlRelacion = "DELETE FROM ejercicio_musculos WHERE id_musculo = ?";
+        String sqlOriginal = "DELETE FROM musculos WHERE id_musculo = ?";
 
         Connection conn = null;
         PreparedStatement statement = null;
         try {
             conn = Conexion.abrir().getConn();
-            statement = conn.prepareStatement(sql);
-            
             conn.setAutoCommit(false);
+            
+            // Eliminar relación
+            statement = conn.prepareStatement(sqlRelacion);            
+            statement.setInt(1, idMusculo);
+            statement.executeUpdate();
 
+            statement.close();
+
+            // Eliminar original
+            statement = conn.prepareStatement(sqlOriginal);
             statement.setInt(1, idMusculo);
             eliminado = statement.executeUpdate() != 0;
 
@@ -138,16 +146,17 @@ public class MusculoDao {
                 e1.printStackTrace();
             }
 
-            System.err.println("Error al insertar en bd: " + e1.getMessage());
+            System.err.println("Error al eliminar en bd: " + e1.getMessage());
             e1.printStackTrace();
 
         } finally {
             try {
-                if (conn != null)                 
-                    conn.close();
-
                 if (statement != null)
                     statement.close();
+                
+                if (conn != null)                 
+                    conn.setAutoCommit(true);
+                    conn.close();
 
             } catch (SQLException e) {
                 System.err.println("Error al cerrar conexión en bd: " + e.getMessage());

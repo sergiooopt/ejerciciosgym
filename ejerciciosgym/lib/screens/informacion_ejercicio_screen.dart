@@ -49,8 +49,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.zero,
         title: Align(
-          alignment: Alignment
-              .bottomCenter, // establece el fondo adecuado con el titulo
+          alignment: Alignment.bottomCenter, // establece el fondo adecuado con el titulo
           child: Container(
             width: double.infinity,
             color: Colors.black54,
@@ -70,7 +69,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,7 +100,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
-            child: Text(' Error al cargar ejercicios: ${snapshot.error}'),
+            child: Text('Error al cargar ejercicios: ${snapshot.error}'),
           );
         }
 
@@ -112,7 +111,7 @@ class InformacionEjercicioScreen extends StatelessWidget {
         final musculosInvolucrados = snapshot.data!;
         return Column(
           children: musculosInvolucrados
-              .map((m) => ElementoMusculoWidget(musculoInvolucrado: m))
+              .map((e) => ElementoMusculoWidget(musculoInvolucrado: e))
               .toList(),
         );
       },
