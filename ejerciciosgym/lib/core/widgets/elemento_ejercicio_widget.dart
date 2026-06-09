@@ -14,7 +14,7 @@ class ElementoEjercicioWidget extends StatelessWidget {
         context,
       ).pushNamed(App.informacionEjercicio, arguments: ejercicioImagen),
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: ClipRRect(
