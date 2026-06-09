@@ -43,7 +43,7 @@ CREATE TABLE ejercicio_musculos (
     PRIMARY KEY (id_ejercicio, id_musculo),
     CONSTRAINT fk_eje_id_eje
 		FOREIGN KEY (id_ejercicio)
-        REFERENCES ejercicios (id_ejercicio)
+        REFERENCES ejercicios (id_ejercicio),
         -- ON DELETE CASCADE,
 	CONSTRAINT fk_mus_id_mus
 		FOREIGN KEY (id_musculo)
