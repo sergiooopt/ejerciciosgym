@@ -14,7 +14,8 @@ import java.sql.Types;
 
 public class EjercicioDao {
 
-    public EjercicioDao() {}
+    public EjercicioDao() {
+    }
 
     private Ejercicio rsToEjercicio(ResultSet rs) throws SQLException {
         // Obtener propiedades
@@ -39,7 +40,7 @@ public class EjercicioDao {
             ResultSet rs = statement.executeQuery();
             while (rs.next())
                 ejercicios.add(rsToEjercicio(rs));
-            
+
             rs.close();
 
         } catch (SQLException e) {
@@ -60,7 +61,7 @@ public class EjercicioDao {
             ResultSet rs = statement.executeQuery();
             while (rs.next())
                 ejercicios.add(rsToEjercicio(rs));
-            
+
             rs.close();
 
         } catch (SQLException e) {
@@ -81,7 +82,7 @@ public class EjercicioDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next())
                 ejercicio = rsToEjercicio(rs);
-            
+
             rs.close();
 
         } catch (SQLException e) {
@@ -92,41 +93,42 @@ public class EjercicioDao {
         return ejercicio;
     }
 
-    public Ejercicio add(Ejercicio ejercicio) {        
+    public Ejercicio add(Ejercicio ejercicio) {
         String sql = "INSERT INTO ejercicios (nombre, descripcion, ruta_imagen, peso_minimo, peso_maximo) VALUES (?, ?, ?, ?, ?)";
-            
-            try (Connection conn = Conexion.abrir().getConn(); PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setString(1, ejercicio.getNombre());
-                statement.setString(2, ejercicio.getDescripcion());
-                statement.setString(3, ejercicio.getRutaImagen());
-                
-                // Unica comprobación de null porque son unicos campos que pueden ser null en bd
-                // debido a que algunos ejercicios pueden no depender de un peso minimo o máximo 
-                // como los ejercicios de peso corporal
-                
-                if (ejercicio.getPesoMinimo() == null) 
-                    statement.setNull(4, Types.INTEGER);
-                else 
-                    statement.setInt(4, ejercicio.getPesoMinimo());
-                
-                if (ejercicio.getPesoMaximo() == null) 
-                    statement.setNull(5, Types.INTEGER);
-                else 
-                    statement.setInt(5, ejercicio.getPesoMaximo());                
 
-                statement.executeUpdate();
+        try (Connection conn = Conexion.abrir().getConn();
+                PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, ejercicio.getNombre());
+            statement.setString(2, ejercicio.getDescripcion());
+            statement.setString(3, ejercicio.getRutaImagen());
 
-                // Obtener ejercicio añadido
-                ResultSet rs = statement.getGeneratedKeys();
-                if (rs.next()) 
-                    ejercicio.setId(rs.getInt(1));
-                
-                return ejercicio;                
-            
-            } catch (SQLException e) {
-                System.err.println("Error al insertar en bd: " + e.getMessage());
-                e.printStackTrace();
-            }
+            // Unica comprobación de null porque son unicos campos que pueden ser null en bd
+            // debido a que algunos ejercicios pueden no depender de un peso minimo o máximo
+            // como los ejercicios de peso corporal
+
+            if (ejercicio.getPesoMinimo() == null)
+                statement.setNull(4, Types.INTEGER);
+            else
+                statement.setInt(4, ejercicio.getPesoMinimo());
+
+            if (ejercicio.getPesoMaximo() == null)
+                statement.setNull(5, Types.INTEGER);
+            else
+                statement.setInt(5, ejercicio.getPesoMaximo());
+
+            statement.executeUpdate();
+
+            // Obtener ejercicio añadido
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next())
+                ejercicio.setId(rs.getInt(1));
+
+            return ejercicio;
+
+        } catch (SQLException e) {
+            System.err.println("Error al insertar en bd: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         return null;
     }
@@ -139,17 +141,17 @@ public class EjercicioDao {
             statement.setString(1, nuevoEjercicio.getNombre());
             statement.setString(2, nuevoEjercicio.getDescripcion());
             statement.setString(3, nuevoEjercicio.getRutaImagen());
-            
-            if (nuevoEjercicio.getPesoMinimo() == null) 
+
+            if (nuevoEjercicio.getPesoMinimo() == null)
                 statement.setNull(4, Types.INTEGER);
-            else 
+            else
                 statement.setInt(4, nuevoEjercicio.getPesoMinimo());
-                
-            if (nuevoEjercicio.getPesoMaximo() == null) 
+
+            if (nuevoEjercicio.getPesoMaximo() == null)
                 statement.setNull(5, Types.INTEGER);
-            else 
-                statement.setInt(5, nuevoEjercicio.getPesoMaximo()); 
-            
+            else
+                statement.setInt(5, nuevoEjercicio.getPesoMaximo());
+
             statement.setInt(6, idEjercicio);
 
             modificado = statement.executeUpdate() != 0;
@@ -164,20 +166,28 @@ public class EjercicioDao {
 
     public boolean delete(int idEjercicio) {
         boolean eliminado = false;
-        String sql = "DELETE FROM ejercicios WHERE id_ejercicio = ?";
+        String sqlRelacion = "DELETE FROM ejercicio_musculos WHERE id_ejercicio = ?";
+        String sqlOriginal = "DELETE FROM ejercicios WHERE id_ejercicio = ?";
 
         Connection conn = null;
         PreparedStatement statement = null;
         try {
             conn = Conexion.abrir().getConn();
-            statement = conn.prepareStatement(sql);
-
             conn.setAutoCommit(false);
 
+            // Eliminar relación
+            statement = conn.prepareStatement(sqlRelacion);
+            statement.setInt(1, idEjercicio);
+            statement.executeUpdate();
+
+            statement.close();
+
+            // Eliminar original
+            statement = conn.prepareStatement(sqlOriginal);
             statement.setInt(1, idEjercicio);
             eliminado = statement.executeUpdate() != 0;
-            
-            conn.commit();            
+
+            conn.commit();
 
         } catch (SQLException e1) {
             try {
@@ -188,16 +198,17 @@ public class EjercicioDao {
                 e1.printStackTrace();
             }
 
-            System.err.println("Error al insertar en bd: " + e1.getMessage());
+            System.err.println("Error al eliminar en bd: " + e1.getMessage());
             e1.printStackTrace();
 
         } finally {
             try {
-                if (conn != null)                 
-                    conn.close();
-
                 if (statement != null)
                     statement.close();
+
+                if (conn != null)
+                    conn.setAutoCommit(true);
+                    conn.close();
 
             } catch (SQLException e) {
                 System.err.println("Error al cerrar conexión en bd: " + e.getMessage());
